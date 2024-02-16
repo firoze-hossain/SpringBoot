@@ -11,17 +11,16 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        SpringApplication springApplication = new SpringApplication(Main.class);
-        ConfigurableApplicationContext context = springApplication.run();
-        College college = context.getBean(College.class);
-        System.out.println("************");
-        System.out.println(college);
-        college.printCollegeName();
+//        SpringApplication springApplication = new SpringApplication(Main.class);
+//        springApplication.run(args);
+        // we don't need to create SpringApplication instance to call run method
+        SpringApplication.run(Main.class, args);
+
     }
 
-    @Bean
-    public College getCollegeObject() {
-        return new College();
-    }
+//    @Bean
+//    public College getCollegeObject() {
+//        return new College();
+//    }
 
 }
