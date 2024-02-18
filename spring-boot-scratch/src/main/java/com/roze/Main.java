@@ -15,7 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 //second way with classpath:
 //@PropertySource("classpath:myproperties/abc.properties")
 //for the root folder src/main/resources
-@PropertySource("classpath:abc.properties")
+//@PropertySource("classpath:abc.properties")
 public class Main {
     public static void main(String[] args) {
 //        SpringApplication springApplication = new SpringApplication(Main.class);
