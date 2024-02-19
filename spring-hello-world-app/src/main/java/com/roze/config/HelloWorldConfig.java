@@ -6,6 +6,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan("com.roze.controller")
+@ComponentScan("com.roze")
 public class HelloWorldConfig {
 }

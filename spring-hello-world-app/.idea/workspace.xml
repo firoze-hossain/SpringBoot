@@ -10,21 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d4523d71-ffd8-4384-805a-e3f5ab213848" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../spring-boot-scratch/src/main/java/com/roze/entity/HelloWorld.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/roze/entity/HelloWorld.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring-boot-scratch/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-scratch/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring-boot-scratch/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-scratch/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring-boot-scratch/src/main/java/com/roze/controller/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-scratch/src/main/java/com/roze/controller/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring-boot-scratch/target/classes/com/roze/controller/HelloController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-scratch/target/classes/com/roze/controller/HelloController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roze/controller/FriendController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roze/entity/MyFriends.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/roze/config/HelloWorldConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roze/config/HelloWorldConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roze/controller/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roze/controller/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/roze/config/HelloWorldConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roze/config/HelloWorldConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roze/controller/HelloController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roze/controller/HelloController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/spring-hello-world-app.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/spring-hello-world-app.war" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/spring-hello-world-app/WEB-INF/classes/com/roze/config/HelloWorldConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/spring-hello-world-app/WEB-INF/classes/com/roze/config/HelloWorldConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/spring-hello-world-app/WEB-INF/classes/com/roze/controller/HelloController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/spring-hello-world-app/WEB-INF/classes/com/roze/controller/HelloController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +170,7 @@
       <option name="presentableId" value="Default" />
       <updated>1707913369714</updated>
       <workItem from="1707913371151" duration="4249000" />
-      <workItem from="1708356061346" duration="1286000" />
+      <workItem from="1708356061346" duration="2701000" />
     </task>
     <servers />
   </component>
