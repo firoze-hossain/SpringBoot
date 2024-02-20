@@ -1,5 +1,7 @@
 package com.roze.entity;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,21 +11,30 @@ import java.util.List;
 public class MyFriends {
     private List<String> friendList;
 
-    public List<String> getAllFiendsList() {
+    @PostConstruct
+    public void init() {
+        System.out.println("Doing some init stuff");
         friendList = new ArrayList<>();
         friendList.add("Millat");
         friendList.add("Rayhan");
         friendList.add("Imtiaze");
         friendList.add("Shajib");
+    }
+
+    public List<String> getAllFiendsList() {
         return friendList;
     }
 
     public int totalFriends() {
-        friendList = new ArrayList<>();
-        friendList.add("Millat");
-        friendList.add("Rayhan");
-        friendList.add("Imtiaze");
-        friendList.add("Shajib");
         return friendList.size();
+    }
+
+    public void addFriend(String friendName) {
+        friendList.add(friendName);
+    }
+    @PreDestroy
+    public void destroy(){
+        System.out.println("Destroy is called");
+        friendList.clear();
     }
 }
