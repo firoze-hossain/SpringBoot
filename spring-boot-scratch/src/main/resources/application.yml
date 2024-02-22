@@ -2,3 +2,4 @@ server:
   port: 8085
 app:
   name: roze sain
+debug: true
