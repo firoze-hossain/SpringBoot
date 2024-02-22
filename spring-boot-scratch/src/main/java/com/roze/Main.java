@@ -44,5 +44,8 @@ public class Main implements CommandLineRunner {
 //    public College getCollegeObject() {
 //        return new College();
 //    }
-
+    @Bean(name = "bestcollege")
+    public College college() {
+        return new College();
+    }
 }
