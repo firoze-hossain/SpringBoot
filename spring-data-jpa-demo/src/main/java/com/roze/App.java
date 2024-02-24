@@ -13,6 +13,6 @@ public class App {
         student.setStudentName("Firoze");
         student.setAddress("Dhaka");
         student.setMobile(0171421620);
-        studentDAOImpl.savStudent(student);
+        studentDAOImpl.saveStudent(student);
     }
 }

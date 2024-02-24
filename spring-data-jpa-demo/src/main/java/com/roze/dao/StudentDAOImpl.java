@@ -2,16 +2,17 @@ package com.roze.dao;
 
 import com.roze.entity.Student;
 import jakarta.persistence.EntityManager;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class StudentDAOImpl implements StudentDAO {
-    @Autowired
+public class StudentDAOImpl  {
+    @PersistenceContext(unitName = "mysqldb")
     EntityManager entityManager;
 
-    @Override
-    public void savStudent(Student student) {
+    @Transactional
+    public void saveStudent(Student student) {
         entityManager.persist(student);
         System.out.println("Record saved successfully");
 
