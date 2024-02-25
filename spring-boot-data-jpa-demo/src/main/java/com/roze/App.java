@@ -1,16 +1,18 @@
 package com.roze;
 
-import com.roze.config.AppConfig;
 import com.roze.dao.StudentDAO;
 import com.roze.entity.Student;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.List;
 import java.util.Optional;
 
+@SpringBootApplication
 public class App {
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext container = new AnnotationConfigApplicationContext(AppConfig.class);
+        ConfigurableApplicationContext container = SpringApplication.run(App.class, args);
         StudentDAO studentDAO = container.getBean("studentDAO", StudentDAO.class);
         Student student = new Student();
         student.setStudentName("Millat");

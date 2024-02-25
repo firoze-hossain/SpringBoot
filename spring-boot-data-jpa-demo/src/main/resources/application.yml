@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/studentdb
+    password: firoze28
+    username: root
+  jpa:
+    show-sql: true
+debug: true
