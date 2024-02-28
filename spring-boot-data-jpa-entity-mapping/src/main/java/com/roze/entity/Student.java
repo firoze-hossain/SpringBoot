@@ -28,7 +28,8 @@ public class Student {
     @Column(name = "email_address",
             nullable = false)
     private String emailId;
-    private String guardianName;
-    private String guardianEmail;
-    private String getGuardianMobile;
+    @Embedded
+    //no other table will be created for guardian
+    //only columns will be created for guardian class in student table
+    private Guardian guardian;
 }

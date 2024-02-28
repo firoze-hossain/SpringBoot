@@ -1,5 +1,6 @@
 package com.roze.repository;
 
+import com.roze.entity.Guardian;
 import com.roze.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,26 @@ class StudentRepositoryTest {
                 .firstName("Firoze")
                 .lastName("Hossain")
                 .emailId("firoze@gmail.com")
-                .guardianName("Abu Bakar")
-                .getGuardianMobile("017777777")
-                .guardianEmail("bakar@gmail.com").build();
+//                .guardianName("Abu Bakar")
+//                .guardianMobile("017777777")
+//                .guardianEmail("bakar@gmail.com")
+                .build();
+        studentRepository.save(student);
+    }
+
+    @Test
+    public void saveStudentWithGuardian() {
+        Guardian guardian = Guardian.builder()
+                .name("ABu Bakar")
+                .email("abub@gmail.com")
+                .mobile("004444455")
+                .build();
+        Student student = Student.builder()
+                .emailId("a@gmail.com")
+                .firstName("Hossain")
+                .lastName("Ahmed")
+                .guardian(guardian)
+                .build();
         studentRepository.save(student);
     }
 
