@@ -12,12 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class StudentRepositoryTest {
-    //@Autowired
+    @Autowired
     private StudentRepository studentRepository;
 
-    public StudentRepositoryTest(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
 
     @Test
     public void saveStudent() {
@@ -52,5 +49,29 @@ class StudentRepositoryTest {
     public void studentList() {
         List<Student> studentList = studentRepository.findAll();
         System.out.println("Student List: " + studentList);
+    }
+
+    @Test
+    public void printAllStudentUsingLastName() {
+        List<Student> studentList = studentRepository.findByLastName("ahmed");
+        System.out.println(studentList);
+    }
+
+    @Test
+    public void printAllStudentUsingFirstNameContaining() {
+        List<Student> studentList = studentRepository.findByFirstNameContaining("in");
+        System.out.println(studentList);
+    }
+
+    @Test
+    public void printAllStudentWithLastNameNotNull() {
+        List<Student> studentList = studentRepository.findByLastNameNotNull();
+        System.out.println(studentList);
+    }
+
+    @Test
+    public void printAllStudentWithGuardianName() {
+        Student student = studentRepository.findByGuardianName("ABu Bakar");
+        System.out.println(student);
     }
 }
