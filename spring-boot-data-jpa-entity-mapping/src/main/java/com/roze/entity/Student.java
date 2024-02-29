@@ -26,7 +26,8 @@ public class Student {
     private String firstName;
     private String lastName;
     @Column(name = "email_address",
-            nullable = false)
+            nullable = false,
+            unique = true)
     private String emailId;
     @Embedded
     //no other table will be created for guardian
