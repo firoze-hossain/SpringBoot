@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -29,7 +30,9 @@ public class AppConfig {
         UserDetails hossainUser = User
                 .withUsername("hossain")
                 //.password("fir28")
-                .password("{noop}fir28")
+                // .password("{noop}fir28")
+                //.password("{bcrypt}$2a$10$PWO6YCIGbQVHts7xrV9FD.xUAXvh7kHWoyCitnv8jl6JYOTork1rC")
+                .password("$2a$10$PWO6YCIGbQVHts7xrV9FD.xUAXvh7kHWoyCitnv8jl6JYOTork1rC")
                 .roles("user")
                 .build();
         // InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
@@ -42,6 +45,10 @@ public class AppConfig {
 //        return NoOpPasswordEncoder.getInstance();
 //    }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 //    @Bean
 //    public InMemoryUserDetailsManager setUp() {
