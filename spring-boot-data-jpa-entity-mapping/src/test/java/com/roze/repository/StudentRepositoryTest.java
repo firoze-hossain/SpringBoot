@@ -70,8 +70,27 @@ class StudentRepositoryTest {
     }
 
     @Test
-    public void printAllStudentWithGuardianName() {
+    public void printStudentWithGuardianName() {
         Student student = studentRepository.findByGuardianName("ABu Bakar");
         System.out.println(student);
+    }
+
+    @Test
+    public void getStudentWithEmailId() {
+        Student student = studentRepository.getStudentByEmailAddress("a@gmail.com");
+        System.out.println(student);
+    }
+
+    @Test
+    public void getFirstNameWithEmailId() {
+        String firstName = studentRepository.getFirstNameByEmailAddress("a@gmail.com");
+        System.out.println(firstName);
+    }
+
+    //get student by guardian email address
+    @Test
+    public void getStudentByGuardianEmailId() {
+        Student guardianEmailAddress = studentRepository.getStudentByGuardianEmailAddress("abub@gmail.com");
+        System.out.println(guardianEmailAddress);
     }
 }
