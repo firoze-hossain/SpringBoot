@@ -19,22 +19,47 @@ import java.util.List;
 @ComponentScan("com.roze")
 public class AppConfig {
     @Bean
-    public InMemoryUserDetailsManager setUp() {
-        GrantedAuthority admin = new SimpleGrantedAuthority("admin");
-        GrantedAuthority user = new SimpleGrantedAuthority("user");
-        GrantedAuthority visitor = new SimpleGrantedAuthority("visitor");
-        List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
-        grantedAuthorityList.add(admin);
-        grantedAuthorityList.add(user);
-        grantedAuthorityList.add(visitor);
-        UserDetails userDetails = new User("Firoze", "password", grantedAuthorityList);
-        InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
-        inMemoryUserDetailsManager.createUser(userDetails);
-        return inMemoryUserDetailsManager;
+    public InMemoryUserDetailsManager setUpUsers() {
+        UserDetails firozeUser = User
+                .withUsername("firoze")
+                // .password("firoze28")
+                .password("{noop}firoze28")
+                .roles("admin,user")
+                .build();
+        UserDetails hossainUser = User
+                .withUsername("hossain")
+                //.password("fir28")
+                .password("{noop}fir28")
+                .roles("user")
+                .build();
+        // InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
+        // inMemoryUserDetailsManager.createUser(firozeUser);
+        //inMemoryUserDetailsManager.createUser(hossainUser);
+        return new InMemoryUserDetailsManager(firozeUser, hossainUser);
     }
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        return NoOpPasswordEncoder.getInstance();
+//    }
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
+
+//    @Bean
+//    public InMemoryUserDetailsManager setUp() {
+//        GrantedAuthority admin = new SimpleGrantedAuthority("admin");
+//        GrantedAuthority user = new SimpleGrantedAuthority("user");
+//        GrantedAuthority visitor = new SimpleGrantedAuthority("visitor");
+//        List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
+//        grantedAuthorityList.add(admin);
+//        grantedAuthorityList.add(user);
+//        grantedAuthorityList.add(visitor);
+//        UserDetails userDetails = new User("Firoze", "password", grantedAuthorityList);
+//        InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
+//        inMemoryUserDetailsManager.createUser(userDetails);
+//        return inMemoryUserDetailsManager;
+//    }
+//
+//    @Bean
+//    PasswordEncoder passwordEncoder() {
+//        return NoOpPasswordEncoder.getInstance();
+//    }
 }

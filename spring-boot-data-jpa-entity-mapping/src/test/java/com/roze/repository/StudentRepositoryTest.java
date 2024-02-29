@@ -12,8 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class StudentRepositoryTest {
-    @Autowired
+    //@Autowired
     private StudentRepository studentRepository;
+
+    public StudentRepositoryTest(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
     @Test
     public void saveStudent() {
