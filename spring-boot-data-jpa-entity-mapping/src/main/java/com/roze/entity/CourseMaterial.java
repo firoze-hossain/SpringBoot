@@ -20,7 +20,9 @@ public class CourseMaterial {
             generator = "course_material_sequence")
     private Long courseMaterialId;
     private String url;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    //cascade->give permission parent to child or give properties to child
+    //it will first save the parent property in db, then child property with referencing parent property
     @JoinColumn(name = "course_id",
             referencedColumnName = "courseId")
     private Course course;
