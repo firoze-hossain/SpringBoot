@@ -27,5 +27,10 @@ public class Course {
             mappedBy = "course"
     )
     private CourseMaterial courseMaterial;
+    //best specification of Jpa is to use ManyToOne relationship
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "teacher_id",
+            referencedColumnName = "teacherId")
+    private Teacher teacher;
 
 }
