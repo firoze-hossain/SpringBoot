@@ -1,6 +1,7 @@
 package com.roze.repository;
 
 import com.roze.entity.Course;
+import com.roze.entity.Student;
 import com.roze.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,4 +77,24 @@ class CourseRepositoryTest {
         System.out.println("Find By Title Containing J: " + courses);
     }
 
+    @Test
+    public void saveCourseWithStudentAndTeacher() {
+        Teacher teacher = Teacher.builder()
+                .firstName("Krishna")
+                .lastName("Das")
+                .build();
+        Student studentAhmed = Student.builder()
+                .firstName("Firoze")
+                .lastName("Ahmed")
+                .emailId("ahmed@gmail.com")
+                .build();
+        Course course = Course.builder()
+                .title("Spring Data JPA")
+                .credit(12)
+                .teacher(teacher)
+                .build();
+        course.addStudents(studentAhmed);
+
+        courseRepository.save(course);
+    }
 }
