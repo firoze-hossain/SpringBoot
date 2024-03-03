@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -56,6 +57,16 @@ class CourseRepositoryTest {
         System.out.println("Total Elements: " + totalElements);
         System.out.println("Total Pages with two Records from second Page: " + totalPagesWithTwoRecordsWithSecondPage);
 
+    }
+
+    @Test
+    public void printAllWithSorting() {
+        Pageable sortByTitle = PageRequest.of(0, 3, Sort.by("title"));
+        Pageable sortByCreditInDesc = PageRequest.of(0, 3, Sort.by("credit").descending());
+        List<Course> coursesWithTitleWithAsc = courseRepository.findAll(sortByTitle).getContent();
+        List<Course> courseWithCreditWithDesc = courseRepository.findAll(sortByCreditInDesc).getContent();
+        System.out.println("Course sorted By Title in Asc: " + coursesWithTitleWithAsc);
+        System.out.println("Course sorted by credit in desc: " + courseWithCreditWithDesc);
     }
 
 }
