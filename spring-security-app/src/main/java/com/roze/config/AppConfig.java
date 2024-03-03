@@ -16,6 +16,11 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
+//import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.*;
+
+
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,11 +64,26 @@ public class AppConfig {
 
     @Bean
     public SecurityFilterChain setUpHttpSecurity() throws Exception {
-        httpSecurity.authorizeHttpRequests().anyRequest().authenticated();
+        //requirements-> /hi-will be authenticated, /hello-will permit all, /bye-will deny all
+        //spring-security 6.0-authorizeHttpRequests()
+//        httpSecurity.authorizeHttpRequests().requestMatchers("/hi","/bye").authenticated();
+//        httpSecurity.authorizeHttpRequests().requestMatchers("/hello").permitAll();
+        //  httpSecurity.authorizeHttpRequests().requestMatchers("/bye").denyAll();
+
+        httpSecurity.authorizeHttpRequests().requestMatchers(antMatcher("/hi"), antMatcher("/bye")).authenticated();
+        httpSecurity.authorizeHttpRequests().requestMatchers(antMatcher("/hello")).permitAll();
+
+        //httpSecurity.authorizeHttpRequests().anyRequest().authenticated();
         httpSecurity.formLogin();
+        httpSecurity.httpBasic();
         return httpSecurity.build();
     }
 
+    //mvcHandlerMappingIntrospector
+//    @Bean(name = "mvcHandlerMappingIntrospector")
+//    HandlerMappingIntrospector handlerMappingIntrospector() {
+//        return new HandlerMappingIntrospector();
+//    }
 //    @Bean
 //    public InMemoryUserDetailsManager setUp() {
 //        GrantedAuthority admin = new SimpleGrantedAuthority("admin");
