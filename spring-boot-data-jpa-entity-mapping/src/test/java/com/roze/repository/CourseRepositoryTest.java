@@ -69,4 +69,11 @@ class CourseRepositoryTest {
         System.out.println("Course sorted by credit in desc: " + courseWithCreditWithDesc);
     }
 
+    @Test
+    public void printFindByTitleContaining() {
+        Pageable pageable = PageRequest.of(0, 8);
+        List<Course> courses = courseRepository.findByTitleContaining("J", pageable).getContent();
+        System.out.println("Find By Title Containing J: " + courses);
+    }
+
 }
