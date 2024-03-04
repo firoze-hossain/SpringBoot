@@ -17,12 +17,20 @@ public class DepartmentController {
         return departmentService.saveDepartment(department);
 
     }
+
     @GetMapping("/departments")
-    public List<Department>departmentList(){
+    public List<Department> departmentList() {
         return departmentService.getDepartmentList();
     }
+
     @GetMapping("/departments/{id}")
-    public Department getDepartmentById(@PathVariable("id") Long departmentId){
+    public Department getDepartmentById(@PathVariable("id") Long departmentId) {
         return departmentService.getDepartmentById(departmentId);
+    }
+
+    @DeleteMapping("/departments/{id}")
+    public String deleteDepartmentById(@PathVariable Long id) {
+        departmentService.deleteDepartmentById(id);
+        return "Department deleted successfully";
     }
 }
