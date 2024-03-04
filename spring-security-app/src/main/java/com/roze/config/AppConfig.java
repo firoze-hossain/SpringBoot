@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,8 +37,9 @@ public class AppConfig {
         UserDetails firozeUser = User
                 .withUsername("firoze")
                 // .password("firoze28")
-                .password("{noop}firoze28")
-                .roles("admin,user")
+                //.password("{noop}firoze28")
+                .password("$2a$10$wuZtJJ1B1pKoVvfLtb4eQuD94XNAU14dJhzBEOksSC1N2DlCYXZRS")
+                .roles("admin", "user")
                 .build();
         UserDetails hossainUser = User
                 .withUsername("hossain")
@@ -69,13 +71,22 @@ public class AppConfig {
 //        httpSecurity.authorizeHttpRequests().requestMatchers("/hi","/bye").authenticated();
 //        httpSecurity.authorizeHttpRequests().requestMatchers("/hello").permitAll();
         //  httpSecurity.authorizeHttpRequests().requestMatchers("/bye").denyAll();
-
-        httpSecurity.authorizeHttpRequests().requestMatchers(antMatcher("/hi"), antMatcher("/bye")).authenticated();
-        httpSecurity.authorizeHttpRequests().requestMatchers(antMatcher("/hello")).permitAll();
-
+        //spring security-6.0
+//        httpSecurity.authorizeHttpRequests().requestMatchers(antMatcher("/hi"), antMatcher("/bye")).authenticated();
+//        httpSecurity.authorizeHttpRequests().requestMatchers(antMatcher("/hello")).permitAll();
+        //spring security-6.1.5(Lambda DSL)
+        httpSecurity.authorizeHttpRequests(customizer -> {
+            customizer.requestMatchers(antMatcher("/hi")).authenticated();
+            customizer.requestMatchers(antMatcher("/bye")).hasRole("admin");
+            customizer.requestMatchers(antMatcher("/hello")).permitAll();
+        });
         //httpSecurity.authorizeHttpRequests().anyRequest().authenticated();
-        httpSecurity.formLogin();
-        httpSecurity.httpBasic();
+        //spring security-6.0
+//        httpSecurity.formLogin();
+//        httpSecurity.httpBasic();
+        //spring security 6.1.5
+        httpSecurity.formLogin(Customizer.withDefaults());
+        httpSecurity.httpBasic(Customizer.withDefaults());
         return httpSecurity.build();
     }
 
