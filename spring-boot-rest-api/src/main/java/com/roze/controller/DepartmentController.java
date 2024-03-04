@@ -3,10 +3,7 @@ package com.roze.controller;
 import com.roze.entity.Department;
 import com.roze.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +20,9 @@ public class DepartmentController {
     @GetMapping("/departments")
     public List<Department>departmentList(){
         return departmentService.getDepartmentList();
+    }
+    @GetMapping("/departments/{id}")
+    public Department getDepartmentById(@PathVariable("id") Long departmentId){
+        return departmentService.getDepartmentById(departmentId);
     }
 }
