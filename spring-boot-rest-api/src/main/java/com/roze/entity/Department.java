@@ -2,6 +2,7 @@ package com.roze.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Department {
@@ -13,6 +14,7 @@ public class Department {
             generator = "department_sequence")
     private Long departmentId;
     @NotBlank(message = "Department name not be blank. Please Provide Department name!!")
+    @NotNull(message = "Department name field should not be null!!")
     private String departmentName;
     private String departmentAddress;
     private String departmentCode;
