@@ -1,6 +1,7 @@
 package com.roze.service;
 
 import com.roze.entity.Department;
+import com.roze.error.DepartmentNotFoundException;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface DepartmentService {
 
     List<Department> getDepartmentList();
 
-    Department getDepartmentById(Long departmentId);
+    Department getDepartmentById(Long departmentId) throws DepartmentNotFoundException;
 
     void deleteDepartmentById(Long id);
 

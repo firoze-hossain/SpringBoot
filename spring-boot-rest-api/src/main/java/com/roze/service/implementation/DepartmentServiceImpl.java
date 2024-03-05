@@ -1,6 +1,7 @@
 package com.roze.service.implementation;
 
 import com.roze.entity.Department;
+import com.roze.error.DepartmentNotFoundException;
 import com.roze.repository.DepartmentRepository;
 import com.roze.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -25,8 +27,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department getDepartmentById(Long departmentId) {
-        return departmentRepository.findById(departmentId).get();
+    public Department getDepartmentById(Long departmentId) throws DepartmentNotFoundException {
+        Optional<Department> department = departmentRepository.findById(departmentId);
+        if (!department.isPresent()) {
+            throw new DepartmentNotFoundException("Department is not found with Id: " + departmentId);
+        }
+
+        return department.get();
     }
 
     @Override

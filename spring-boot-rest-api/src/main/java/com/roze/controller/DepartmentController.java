@@ -1,6 +1,7 @@
 package com.roze.controller;
 
 import com.roze.entity.Department;
+import com.roze.error.DepartmentNotFoundException;
 import com.roze.service.DepartmentService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments/{id}")
-    public Department getDepartmentById(@PathVariable("id") Long departmentId) {
+    public Department getDepartmentById(@PathVariable("id") Long departmentId) throws DepartmentNotFoundException {
         return departmentService.getDepartmentById(departmentId);
     }
 
