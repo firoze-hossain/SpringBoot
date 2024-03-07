@@ -1,5 +1,5 @@
-#server:
-#  port: 8082
+server:
+  port: 8082
 #spring:
 #  datasource:
 #    driver-class-name: org.h2.Driver
@@ -30,3 +30,5 @@ spring:
         format_sql: true
     #database: mysql
 
+welcome:
+  message: Welcome to rest api
