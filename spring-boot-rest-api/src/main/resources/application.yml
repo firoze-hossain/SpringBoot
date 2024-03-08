@@ -90,3 +90,4 @@ management:
     web:
       exposure:
         include: "*"
+        exclude: "beans,caches"
