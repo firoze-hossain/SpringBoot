@@ -85,3 +85,8 @@ spring:
         format_sql: true
 welcome:
   message: Welcome to rest api
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
