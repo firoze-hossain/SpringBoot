@@ -1,5 +1,11 @@
 server:
   port: 8082
+spring:
+  profiles:
+    active: prod
+
+---
+
 #spring:
 #  datasource:
 #    driver-class-name: org.h2.Driver
@@ -14,6 +20,9 @@ server:
 #      enabled: true
 
 spring:
+  config:
+    activate:
+      on-profile: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/deptdb
@@ -30,5 +39,49 @@ spring:
         format_sql: true
     #database: mysql
 
+welcome:
+  message: Welcome to rest api
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: qa
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/deptdb_qa
+    username: root
+    password: firoze28
+
+  jpa:
+    #database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+welcome:
+  message: Welcome to rest api
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/deptdb_prod
+    username: root
+    password: firoze28
+
+  jpa:
+    #database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 welcome:
   message: Welcome to rest api
