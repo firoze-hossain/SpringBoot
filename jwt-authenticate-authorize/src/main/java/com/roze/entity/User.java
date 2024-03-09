@@ -2,6 +2,7 @@ package com.roze.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
+@Builder
 public class User implements UserDetails {
     @Id
     @SequenceGenerator(name = "users_sequence",
