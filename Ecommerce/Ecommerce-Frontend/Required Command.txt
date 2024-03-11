@@ -1,0 +1,7 @@
+Lazy-loading feature modules:
+ng generate module customer --route customer --module app.module
+Angular Material:
+ng add @angular/material@15.2.9
+create component:
+ng g c login
+
