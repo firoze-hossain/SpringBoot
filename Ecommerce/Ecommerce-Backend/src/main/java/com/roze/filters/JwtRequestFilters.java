@@ -1,6 +1,5 @@
 package com.roze.filters;
 
-import com.roze.service.UserService;
 import com.roze.service.implementation.UserDetailsServiceImpl;
 import com.roze.utils.JwtUtil;
 import jakarta.servlet.FilterChain;
