@@ -13,3 +13,6 @@ spring:
     url: jdbc:mysql://localhost:3306/ecomdb
 server:
   port: 8085
+app:
+  client:
+    url: http::/localhost:4200/login
