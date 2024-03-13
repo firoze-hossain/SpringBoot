@@ -4,7 +4,7 @@ spring:
     hibernate:
       ddl-auto: update
     properties:
-      Hibernate:
+      hibernate:
         format_sql: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
