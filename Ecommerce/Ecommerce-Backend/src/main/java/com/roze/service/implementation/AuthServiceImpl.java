@@ -29,7 +29,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private  BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final UserRepository userRepository;
@@ -67,6 +67,9 @@ public class AuthServiceImpl implements AuthService {
                     .put("role", optionalUser.get().getUserRole())
                     .toString()
             );
+            httpServletResponse.addHeader("Access-Control-Expose-Headers", "Authorization");
+            httpServletResponse.addHeader("Access-Control-Allow-Headers", "Authorization, X-PINGOTHER, Origin," +
+                    "X-Requested-With, Content-Type, Accept, X-Custom-header");
             httpServletResponse.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
         }
     }
@@ -84,7 +87,7 @@ public class AuthServiceImpl implements AuthService {
             user.setEmail("admin@gmail.com");
             user.setUserRole(UserRole.ADMIN);
             user.setName("admin");
-            user.setPassword(new BCryptPasswordEncoder().encode("admin"));
+            user.setPassword(bCryptPasswordEncoder.encode("admin"));
             userRepository.save(user);
         }
     }
