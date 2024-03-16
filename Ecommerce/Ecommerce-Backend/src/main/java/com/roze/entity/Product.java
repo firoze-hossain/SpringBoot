@@ -1,6 +1,7 @@
 package com.roze.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.roze.dto.ProductDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -25,4 +26,15 @@ public class Product {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Category category;
+
+    public ProductDto getDto() {
+        ProductDto productDto = new ProductDto();
+        productDto.setId(id);
+        productDto.setPrice(price);
+        productDto.setName(name);
+        productDto.setDescription(description);
+        productDto.setByteImage(image);
+        productDto.setCategoryId(category.getId());
+        return productDto;
+    }
 }
