@@ -9,6 +9,7 @@ import com.roze.service.admin.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,12 +20,12 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public ProductDto addProduct(ProductDto productDto) {
+    public ProductDto addProduct(ProductDto productDto) throws IOException {
         Product product = new Product();
         product.setName(productDto.getName());
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
-        product.setImage(productDto.getByteImage());
+        product.setImage(productDto.getImage().getBytes());
         Category category = categoryRepository.findById(productDto.getCategoryId()).orElseThrow();
         product.setCategory(category);
         return productRepository.save(product).getDto();
