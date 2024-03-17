@@ -3,8 +3,11 @@ package com.roze.service.implementation;
 import com.roze.dto.AuthenticationRequest;
 import com.roze.dto.SignupRequest;
 import com.roze.dto.UserDto;
+import com.roze.entity.Order;
 import com.roze.entity.User;
+import com.roze.enums.OrderStatus;
 import com.roze.enums.UserRole;
+import com.roze.repository.OrderRepository;
 import com.roze.repository.UserRepository;
 import com.roze.service.AuthService;
 import com.roze.utils.JwtUtil;
@@ -29,7 +32,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     @Autowired
-    private  BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private OrderRepository orderRepository;
+
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final UserRepository userRepository;
@@ -45,6 +51,14 @@ public class AuthServiceImpl implements AuthService {
         user.setUserRole(UserRole.CUSTOMER);
 
         User createdUser = userRepository.save(user);
+
+        Order order = new Order();
+        order.setAmount(0L);
+        order.setDiscount(0L);
+        order.setTotalAmount(0L);
+        order.setUser(createdUser);
+        order.setOrderStatus(OrderStatus.Pending);
+        orderRepository.save(order);
 
         UserDto userDto = new UserDto();
         userDto.setId(createdUser.getId());
