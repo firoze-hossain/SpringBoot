@@ -1,3 +1,13 @@
+<form [formGroup]="searchProductForm" class="search-form" (submit)="submitForm()">
+  <mat-form-field appearance="outline" class="search-input">
+    <mat-label>Enter keyword to search</mat-label>
+    <input matInput formControlName="title">
+    <button mat-button matSuffix color="primary" [disabled]="searchProductForm.invalid">
+      <mat-icon>Search</mat-icon>
+    </button>
+  </mat-form-field>
+</form>
+
 <div class="product-list">
 
   <mat-card class="product-card" *ngFor="let product of products">
@@ -33,8 +43,7 @@
         <button mat-raised-button color="accent" class="update-button"
                 [routerLink]="'/admin/product/'+product.id">Update
         </button>
-        <button mat-raised-button color="warn" class="delete-button"
-                [routerLink]="'/admin/product/'+product.id">Delete
+        <button mat-raised-button color="warn" class="delete-button" (click)="deleteProduct(product.id)">Delete
         </button>
       </div>
 
