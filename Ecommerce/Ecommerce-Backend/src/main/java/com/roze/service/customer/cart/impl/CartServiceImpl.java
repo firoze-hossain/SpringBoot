@@ -1,6 +1,8 @@
 package com.roze.service.customer.cart.impl;
 
 import com.roze.dto.AddProductInCartDto;
+import com.roze.dto.CartItemsDto;
+import com.roze.dto.OrderDto;
 import com.roze.entity.CartItems;
 import com.roze.entity.Order;
 import com.roze.entity.Product;
@@ -16,7 +18,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -57,5 +61,19 @@ public class CartServiceImpl implements CartService {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User or product not found");
             }
         }
+    }
+
+    public OrderDto getCartByUserId(Long userId) {
+        Order activeOrder = orderRepository.findByUserIdAndOrderStatus(userId, OrderStatus.Pending);
+        List<CartItemsDto> cartItemsDtoList=activeOrder.getCartItems().
+                stream().map(CartItems::getCartDto).collect(Collectors.toList());
+        OrderDto orderDto = new OrderDto();
+        orderDto.setAmount(activeOrder.getAmount());
+        orderDto.setOrderStatus(activeOrder.getOrderStatus());
+        orderDto.setId(activeOrder.getId());
+        orderDto.setDiscount(activeOrder.getDiscount());
+        orderDto.setTotalAmount(activeOrder.getTotalAmount());
+        orderDto.setCartItems(cartItemsDtoList);
+        return orderDto;
     }
 }

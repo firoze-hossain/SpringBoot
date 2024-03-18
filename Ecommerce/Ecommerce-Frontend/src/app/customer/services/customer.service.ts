@@ -10,6 +10,14 @@ export class CustomerService {
 
   constructor(private http:HttpClient) { }
 
+  addToCart(productId:any): Observable<any> {
+    const cartDto={
+      productId:productId,
+      userId:UserStorageService.getUserId()
+    };
+    return this.http.post(BASIC_URL + 'api/customer/cart',cartDto,
+      {headers: this.createAuthorizationHeader()});
+  }
   getAllProducts(): Observable<any> {
     return this.http.get(BASIC_URL + 'api/customer/products', {headers: this.createAuthorizationHeader()});
   }

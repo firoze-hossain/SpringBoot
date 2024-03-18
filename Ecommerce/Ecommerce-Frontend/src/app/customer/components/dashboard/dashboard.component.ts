@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -45,7 +45,10 @@ export class DashboardComponent {
       })
     })
   }
-  addToCart(id:any){
 
+  addToCart(id: any) {
+    this.customerService.addToCart(id).subscribe(res => {
+      this.snackBar.open('Product added to cart successfully', 'Close', {duration: 5000});
+    })
   }
 }

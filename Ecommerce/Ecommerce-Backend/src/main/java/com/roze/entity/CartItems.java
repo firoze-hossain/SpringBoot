@@ -1,5 +1,7 @@
 package com.roze.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.roze.dto.CartItemsDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -27,5 +29,18 @@ public class CartItems {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
+    @JsonIgnoreProperties("cartItems")
     private Order order;
+
+    public CartItemsDto getCartDto() {
+        CartItemsDto cartItemsDto = new CartItemsDto();
+        cartItemsDto.setId(id);
+        cartItemsDto.setProductId(product.getId());
+        cartItemsDto.setPrice(price);
+        cartItemsDto.setQuantity(quantity);
+        cartItemsDto.setUserId(user.getId());
+        cartItemsDto.setProductName(product.getName());
+        cartItemsDto.setReturnedImg(product.getImage());
+        return cartItemsDto;
+    }
 }
