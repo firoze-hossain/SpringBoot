@@ -38,6 +38,14 @@ export class AdminService {
     return this.http.post(BASIC_URL + 'api/admin/product', productDto, {headers: this.createAuthorizationHeader()});
   }
 
+  addCoupon(couponDto: any): Observable<any> {
+    return this.http.post(BASIC_URL + 'api/admin/coupons', couponDto, {headers: this.createAuthorizationHeader()});
+  }
+
+  getCoupons(): Observable<any> {
+    return this.http.get(BASIC_URL + 'api/admin/coupons', {headers: this.createAuthorizationHeader()});
+  }
+
   private createAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + UserStorageService.getToken())
   }
