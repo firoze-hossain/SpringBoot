@@ -3,6 +3,8 @@ package com.roze.controller.customer;
 import com.roze.dto.AddProductInCartDto;
 import com.roze.dto.CartItemsDto;
 import com.roze.dto.OrderDto;
+import com.roze.entity.Coupon;
+import com.roze.exceptions.ValidationException;
 import com.roze.service.customer.cart.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,5 +26,15 @@ public class CartController {
     public ResponseEntity<?> getCartByUserId(@PathVariable("userId") Long userId) {
         OrderDto orderDto = cartService.getCartByUserId(userId);
         return ResponseEntity.status(HttpStatus.OK).body(orderDto);
+    }
+
+    @GetMapping("/coupon/{userId}/{code}")
+    public ResponseEntity<?> applyCoupon(@PathVariable("userId") Long userId, @PathVariable("code") String code) {
+        try {
+            OrderDto orderDto = cartService.applyCoupon(userId, code);
+            return ResponseEntity.ok(orderDto);
+        } catch (ValidationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }

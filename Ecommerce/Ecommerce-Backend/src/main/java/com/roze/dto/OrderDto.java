@@ -22,7 +22,7 @@ public class OrderDto {
     private Long totalAmount;
     private Long discount;
     private UUID trackingId;
-
+    private String couponName;
     private String userName;
 
 

@@ -3,21 +3,18 @@ package com.roze.service.customer.cart.impl;
 import com.roze.dto.AddProductInCartDto;
 import com.roze.dto.CartItemsDto;
 import com.roze.dto.OrderDto;
-import com.roze.entity.CartItems;
-import com.roze.entity.Order;
-import com.roze.entity.Product;
-import com.roze.entity.User;
+import com.roze.entity.*;
 import com.roze.enums.OrderStatus;
-import com.roze.repository.CartItemsRepository;
-import com.roze.repository.OrderRepository;
-import com.roze.repository.ProductRepository;
-import com.roze.repository.UserRepository;
+import com.roze.exceptions.ValidationException;
+import com.roze.repository.*;
 import com.roze.service.customer.cart.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,6 +29,8 @@ public class CartServiceImpl implements CartService {
     private CartItemsRepository cartItemsRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private CouponRepository couponRepository;
 
     public ResponseEntity<?> addProductToCart(AddProductInCartDto addProductInCartDto) {
         Order activeOrder = orderRepository.findByUserIdAndOrderStatus(addProductInCartDto.getUserId(), OrderStatus.Pending);
@@ -65,7 +64,7 @@ public class CartServiceImpl implements CartService {
 
     public OrderDto getCartByUserId(Long userId) {
         Order activeOrder = orderRepository.findByUserIdAndOrderStatus(userId, OrderStatus.Pending);
-        List<CartItemsDto> cartItemsDtoList=activeOrder.getCartItems().
+        List<CartItemsDto> cartItemsDtoList = activeOrder.getCartItems().
                 stream().map(CartItems::getCartDto).collect(Collectors.toList());
         OrderDto orderDto = new OrderDto();
         orderDto.setAmount(activeOrder.getAmount());
@@ -74,6 +73,30 @@ public class CartServiceImpl implements CartService {
         orderDto.setDiscount(activeOrder.getDiscount());
         orderDto.setTotalAmount(activeOrder.getTotalAmount());
         orderDto.setCartItems(cartItemsDtoList);
+        if (activeOrder.getCoupon() != null) {
+            orderDto.setCouponName(activeOrder.getCoupon().getName());
+        }
         return orderDto;
+    }
+
+    public OrderDto applyCoupon(Long userId, String code) {
+        Order activeOrder = orderRepository.findByUserIdAndOrderStatus(userId, OrderStatus.Pending);
+        Coupon coupon = couponRepository.findByCode(code).orElseThrow(() -> new ValidationException("Coupon not found!!"));
+        if (couponIsExpired(coupon)) {
+            throw new ValidationException("Coupon is expired");
+        }
+        double discountAmount = ((coupon.getDiscount() / 100) * activeOrder.getTotalAmount());
+        double netAmount = activeOrder.getTotalAmount() - discountAmount;
+        activeOrder.setAmount((long) netAmount);
+        activeOrder.setDiscount((long) discountAmount);
+        activeOrder.setCoupon(coupon);
+        orderRepository.save(activeOrder);
+        return activeOrder.getOrderDto();
+    }
+
+    private boolean couponIsExpired(Coupon coupon) {
+        Date currentDate = new Date();
+        Date expirationDate = coupon.getExpirationDate();
+        return expirationDate != null && currentDate.after(expirationDate);
     }
 }
