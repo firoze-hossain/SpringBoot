@@ -143,28 +143,55 @@ public class CartServiceImpl implements CartService {
         return null;
     }
 
+//    public OrderDto placeOrder(PlaceOrderDto placeOrderDto) {
+//        Order activeOrder = orderRepository.findByUserIdAndOrderStatus(placeOrderDto.getUserId(), OrderStatus.Pending);
+//        Optional<User> optionalUser = userRepository.findById(placeOrderDto.getUserId());
+//        if (optionalUser.isPresent()) {
+//            activeOrder.setOrderDescription(placeOrderDto.getOderDescription());
+//            activeOrder.setAddress(placeOrderDto.getAddress());
+//            activeOrder.setDate(new Date());
+//            activeOrder.setOrderStatus(OrderStatus.Placed);
+//            activeOrder.setTrackingId(UUID.randomUUID());
+//            orderRepository.save(activeOrder);
+//
+//            Order order = new Order();
+//            order.setAmount(0L);
+//            order.setDiscount(0L);
+//            order.setTotalAmount(0L);
+//            order.setUser(optionalUser.get());
+//            order.setOrderStatus(OrderStatus.Pending);
+//            orderRepository.save(order);
+//            return activeOrder.getOrderDto();
+//        }
+//        return null;
+//    }
+
     public OrderDto placeOrder(PlaceOrderDto placeOrderDto) {
-        Order activeOrder = orderRepository.findByUserIdAndOrderStatus(placeOrderDto.getUserId(), OrderStatus.Pending);
         Optional<User> optionalUser = userRepository.findById(placeOrderDto.getUserId());
         if (optionalUser.isPresent()) {
-            activeOrder.setOrderDescription(placeOrderDto.getOderDescription());
-            activeOrder.setAddress(placeOrderDto.getAddress());
-            activeOrder.setDate(new Date());
-            activeOrder.setOrderStatus(OrderStatus.Placed);
-            activeOrder.setTrackingId(UUID.randomUUID());
-            orderRepository.save(activeOrder);
-
-            Order order = new Order();
-            order.setAmount(0L);
-            order.setDiscount(0L);
-            order.setTotalAmount(0L);
-            order.setUser(optionalUser.get());
-            order.setOrderStatus(OrderStatus.Pending);
-            orderRepository.save(order);
-            return activeOrder.getOrderDto();
+            Order activeOrder = orderRepository.findByUserIdAndOrderStatus(placeOrderDto.getUserId(), OrderStatus.Pending);
+            if (activeOrder != null) {
+                activeOrder.setOrderDescription(placeOrderDto.getOderDescription());
+                activeOrder.setAddress(placeOrderDto.getAddress());
+                activeOrder.setDate(new Date());
+                activeOrder.setOrderStatus(OrderStatus.Placed);
+                activeOrder.setTrackingId(UUID.randomUUID());
+                orderRepository.save(activeOrder);
+                return activeOrder.getOrderDto();
+            } else {
+                Order order = new Order();
+                order.setAmount(0L);
+                order.setDiscount(0L);
+                order.setTotalAmount(0L);
+                order.setUser(optionalUser.get());
+                order.setOrderStatus(OrderStatus.Pending);
+                orderRepository.save(order);
+                return order.getOrderDto();
+            }
         }
         return null;
     }
+
 
     private boolean couponIsExpired(Coupon coupon) {
         Date currentDate = new Date();

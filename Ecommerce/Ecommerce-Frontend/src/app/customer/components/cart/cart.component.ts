@@ -3,6 +3,7 @@ import {CustomerService} from "../../services/customer.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Dialog} from "@angular/cdk/dialog";
+import {PlaceOrderComponent} from "../place-order/place-order.component";
 
 @Component({
   selector: 'app-cart',
@@ -48,17 +49,23 @@ export class CartComponent {
       })
     })
   }
-  increaseQuantity(productId:any){
-    this.customerService.increaseProductQuantity(productId).subscribe(res=>{
-      this.snackBar.open('Product quantity increased','Close',{duration:5000});
+
+  increaseQuantity(productId: any) {
+    this.customerService.increaseProductQuantity(productId).subscribe(res => {
+      this.snackBar.open('Product quantity increased', 'Close', {duration: 5000});
       this.getCart();
     })
   }
-  decreaseQuantity(productId:any){
-    this.customerService.decreaseProductQuantity(productId).subscribe(res=>{
-      this.snackBar.open('Product quantity decreased','Close',{duration:5000});
+
+  decreaseQuantity(productId: any) {
+    this.customerService.decreaseProductQuantity(productId).subscribe(res => {
+      this.snackBar.open('Product quantity decreased', 'Close', {duration: 5000});
       this.getCart();
     })
+  }
+
+  placeOrder() {
+    this.dialog.open(PlaceOrderComponent);
   }
 
 }
