@@ -1,9 +1,8 @@
 package com.roze.controller.customer;
 
 import com.roze.dto.AddProductInCartDto;
-import com.roze.dto.CartItemsDto;
 import com.roze.dto.OrderDto;
-import com.roze.entity.Coupon;
+import com.roze.dto.PlaceOrderDto;
 import com.roze.exceptions.ValidationException;
 import com.roze.service.customer.cart.CartService;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +41,13 @@ public class CartController {
     public ResponseEntity<OrderDto> increaseProductQuantity(@RequestBody AddProductInCartDto addProductInCartDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(cartService.increaseProductQuantity(addProductInCartDto));
     }
+
     @PostMapping("/deduction")
     public ResponseEntity<OrderDto> decreaseProductQuantity(@RequestBody AddProductInCartDto addProductInCartDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(cartService.decreaseProductQuantity(addProductInCartDto));
+    }
+    @PostMapping("/placeOrder")
+    public ResponseEntity<OrderDto> placeOrder(@RequestBody PlaceOrderDto placeOrderDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(cartService.placeOrder(placeOrderDto));
     }
 }

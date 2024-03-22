@@ -3,6 +3,7 @@ package com.roze.service.customer.cart.impl;
 import com.roze.dto.AddProductInCartDto;
 import com.roze.dto.CartItemsDto;
 import com.roze.dto.OrderDto;
+import com.roze.dto.PlaceOrderDto;
 import com.roze.entity.*;
 import com.roze.enums.OrderStatus;
 import com.roze.exceptions.ValidationException;
@@ -13,10 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -137,6 +138,29 @@ public class CartServiceImpl implements CartService {
             }
             cartItemsRepository.save(cartItems);
             orderRepository.save(activeOrder);
+            return activeOrder.getOrderDto();
+        }
+        return null;
+    }
+
+    public OrderDto placeOrder(PlaceOrderDto placeOrderDto) {
+        Order activeOrder = orderRepository.findByUserIdAndOrderStatus(placeOrderDto.getUserId(), OrderStatus.Pending);
+        Optional<User> optionalUser = userRepository.findById(placeOrderDto.getUserId());
+        if (optionalUser.isPresent()) {
+            activeOrder.setOrderDescription(placeOrderDto.getOderDescription());
+            activeOrder.setAddress(placeOrderDto.getAddress());
+            activeOrder.setDate(new Date());
+            activeOrder.setOrderStatus(OrderStatus.Placed);
+            activeOrder.setTrackingId(UUID.randomUUID());
+            orderRepository.save(activeOrder);
+
+            Order order = new Order();
+            order.setAmount(0L);
+            order.setDiscount(0L);
+            order.setTotalAmount(0L);
+            order.setUser(optionalUser.get());
+            order.setOrderStatus(OrderStatus.Pending);
+            orderRepository.save(order);
             return activeOrder.getOrderDto();
         }
         return null;
