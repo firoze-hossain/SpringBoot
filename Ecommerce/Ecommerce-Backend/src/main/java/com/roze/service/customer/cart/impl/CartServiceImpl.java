@@ -198,4 +198,10 @@ public class CartServiceImpl implements CartService {
         Date expirationDate = coupon.getExpirationDate();
         return expirationDate != null && currentDate.after(expirationDate);
     }
+
+    public List<OrderDto> getMyPlacedOrders(Long userId) {
+        return orderRepository.findByUserIdAndOrderStatusIn(userId,
+                List.of(OrderStatus.Placed, OrderStatus.Shipped, OrderStatus.Delivered)).
+                stream().map(Order::getOrderDto).collect(Collectors.toList());
+    }
 }
