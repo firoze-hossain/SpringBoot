@@ -12,4 +12,5 @@ public interface CartService {
     OrderDto applyCoupon(Long userId, String code);
 
     OrderDto increaseProductQuantity(AddProductInCartDto addProductInCartDto);
+    OrderDto decreaseProductQuantity(AddProductInCartDto addProductInCartDto);
 }
