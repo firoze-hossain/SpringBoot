@@ -1,5 +1,6 @@
 package com.roze.entity;
 
+import com.roze.dto.FAQDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -18,4 +19,13 @@ public class FAQ {
     @JoinColumn(name = "product_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
+
+    public FAQDto getFAQDto() {
+        FAQDto faqDto = new FAQDto();
+        faqDto.setId(id);
+        faqDto.setQuestion(question);
+        faqDto.setProductId(product.getId());
+        faqDto.setAnswer(answer);
+        return faqDto;
+    }
 }

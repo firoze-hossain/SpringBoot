@@ -1,6 +1,8 @@
 package com.roze.controller.admin;
 
+import com.roze.dto.FAQDto;
 import com.roze.dto.ProductDto;
+import com.roze.service.admin.faq.FAQService;
 import com.roze.service.admin.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminProductController {
     private final ProductService productService;
+    private final FAQService faqService;
 
     @PostMapping("/product")
     public ResponseEntity<ProductDto> addProduct(@ModelAttribute ProductDto productDto) throws IOException {
@@ -45,4 +48,8 @@ public class AdminProductController {
         return ResponseEntity.notFound().build();
     }
 
+    @PostMapping("/faq/{productId}")
+    public ResponseEntity<FAQDto> postFAQ(@PathVariable("productId") Long productId, FAQDto faqDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(faqService.postFAQ(productId, faqDto));
+    }
 }
