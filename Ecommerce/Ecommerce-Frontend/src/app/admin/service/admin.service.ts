@@ -30,12 +30,21 @@ export class AdminService {
       {headers: this.createAuthorizationHeader()});
   }
 
+  getProductById(productId): Observable<any> {
+    return this.http.get(BASIC_URL + `api/admin/product/${productId}`,
+      {headers: this.createAuthorizationHeader()});
+  }
+
   deleteProduct(id: any): Observable<any> {
     return this.http.delete(BASIC_URL + `api/admin/product/${id}`, {headers: this.createAuthorizationHeader()});
   }
 
   addProduct(productDto: any): Observable<any> {
     return this.http.post(BASIC_URL + 'api/admin/product', productDto, {headers: this.createAuthorizationHeader()});
+  }
+  updateProduct(productId:any,productDto: any): Observable<any> {
+    return this.http.put(BASIC_URL + `api/admin/product/${productId}`, productDto,
+      {headers: this.createAuthorizationHeader()});
   }
 
   addCoupon(couponDto: any): Observable<any> {
