@@ -74,6 +74,11 @@ export class CustomerService {
     return this.http.get(BASIC_URL + 'api/customer/products', {headers: this.createAuthorizationHeader()});
   }
 
+  giveReview(reviewDto: any): Observable<any> {
+    return this.http.post(BASIC_URL + 'api/customer/review', reviewDto,
+      {headers: this.createAuthorizationHeader()});
+  }
+
   getAllProductsByName(name: any): Observable<any> {
     return this.http.get(BASIC_URL + `api/customer/search/${name}`,
       {headers: this.createAuthorizationHeader()});

@@ -27,7 +27,7 @@ public class ReviewController {
         if (reviewDto1 == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong");
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body(reviewDto);
+            return ResponseEntity.status(HttpStatus.OK).body(reviewDto1);
         }
     }
 }
