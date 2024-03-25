@@ -1,5 +1,6 @@
 package com.roze.entity;
 
+import com.roze.dto.ReviewDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -11,7 +12,7 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long review;
+    private Long rating;
     @Lob
     private String description;
     @Lob
@@ -27,4 +28,16 @@ public class Review {
     @JoinColumn(name = "product_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
+
+    public ReviewDto getDto() {
+        ReviewDto reviewDto = new ReviewDto();
+        reviewDto.setId(id);
+        reviewDto.setDescription(description);
+        reviewDto.setRating(rating);
+        reviewDto.setUsername(user.getName());
+        reviewDto.setReturnedImg(image);
+        reviewDto.setProductId(product.getId());
+        reviewDto.setUserId(user.getId());
+        return reviewDto;
+    }
 }
