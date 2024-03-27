@@ -79,6 +79,12 @@ export class CustomerService {
       {headers: this.createAuthorizationHeader()});
   }
 
+  addProductToWishlist(wishlistDto: any): Observable<any> {
+    console.log(wishlistDto);
+    return this.http.post(BASIC_URL + `api/customer/wishlist`, wishlistDto,
+      {headers: this.createAuthorizationHeader()});
+  }
+
   getAllProductsByName(name: any): Observable<any> {
     return this.http.get(BASIC_URL + `api/customer/search/${name}`,
       {headers: this.createAuthorizationHeader()});
