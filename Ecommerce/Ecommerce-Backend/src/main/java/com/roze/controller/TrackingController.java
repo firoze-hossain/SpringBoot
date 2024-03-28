@@ -16,7 +16,7 @@ import java.util.UUID;
 public class TrackingController {
     private final CartService cartService;
 
-    @GetMapping("/order/trackingId")
+    @GetMapping("/order/{trackingId}")
     public ResponseEntity<OrderDto> searchOrderByTrackingId(@PathVariable("trackingId") UUID trackingId) {
         OrderDto orderDto = cartService.searchOrderByTrackingId(trackingId);
         if (orderDto == null) {
