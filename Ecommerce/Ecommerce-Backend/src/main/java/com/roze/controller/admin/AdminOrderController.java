@@ -1,5 +1,6 @@
 package com.roze.controller.admin;
 
+import com.roze.dto.AnalyticsResponse;
 import com.roze.dto.OrderDto;
 import com.roze.service.admin.order.AdminOrderService;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,10 @@ public class AdminOrderController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(orderDto);
 
+    }
+
+    @GetMapping("/order/analytics")
+    public ResponseEntity<AnalyticsResponse> getAnalytics() {
+        return ResponseEntity.ok(adminOrderService.calculateAnalytics());
     }
 }
