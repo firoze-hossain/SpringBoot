@@ -42,7 +42,8 @@ export class AdminService {
   addProduct(productDto: any): Observable<any> {
     return this.http.post(BASIC_URL + 'api/admin/product', productDto, {headers: this.createAuthorizationHeader()});
   }
-  updateProduct(productId:any,productDto: any): Observable<any> {
+
+  updateProduct(productId: any, productDto: any): Observable<any> {
     return this.http.put(BASIC_URL + `api/admin/product/${productId}`, productDto,
       {headers: this.createAuthorizationHeader()});
   }
@@ -66,6 +67,11 @@ export class AdminService {
 
   postFAQ(productId: number, faqDto: any): Observable<any> {
     return this.http.post(BASIC_URL + `api/admin/faq/${productId}`, faqDto,
+      {headers: this.createAuthorizationHeader()});
+  }
+
+  getAnalytics(): Observable<any> {
+    return this.http.get(BASIC_URL + 'api/admin/order/analytics',
       {headers: this.createAuthorizationHeader()});
   }
 
