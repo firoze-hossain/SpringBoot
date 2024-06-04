@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @Entity
+@Table(name = "AUTHOR_TBL")
 public class Author {
     //    @Id
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE,
