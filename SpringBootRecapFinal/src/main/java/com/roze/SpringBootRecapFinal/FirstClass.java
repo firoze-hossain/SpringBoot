@@ -8,8 +8,14 @@ import org.springframework.stereotype.Service;
 //@Service
 //@Repository
 public class FirstClass {
+    private String myVar;
+
+    public FirstClass(String myVar) {
+        this.myVar = myVar;
+    }
+
     public String hello() {
-        return "Hello Firoze";
+        return "Hello Firoze==>myVar=" + myVar;
     }
 
 }

@@ -16,7 +16,8 @@ public class SpringBootRecapFinalApplication {
 //        System.out.println(firstClass.hello());
 //Used the core feature of spring
         //then get bean from spring application context
-        FirstClass firstClass = context.getBean(FirstClass.class);
+        //FirstClass firstClass = context.getBean(FirstClass.class);
+        FirstClass firstClass = context.getBean("firoze",FirstClass.class);
         System.out.println(firstClass.hello());
 
     }

@@ -5,8 +5,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ApplicationConfig {
-    @Bean
+//    @Bean
+    @Bean(name = "firoze")
     public FirstClass firstClass() {
-        return new FirstClass();
+        return new FirstClass("Welcome in Java");
     }
 }
