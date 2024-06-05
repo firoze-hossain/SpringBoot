@@ -22,9 +22,9 @@ public class SpringBootRecapFinalApplication {
     }
 
     // I have created a bean of FirstClass using bean annotation
-    @Bean
-    public FirstClass firstClass() {
-        return new FirstClass();
-    }
+    //@Bean
+//    public FirstClass firstClass() {
+//        return new FirstClass();
+//    }
 
 }
