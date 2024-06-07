@@ -6,18 +6,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MyFirstService {
-    @Autowired
-    @Qualifier("secondBean")
-    private  FirstClass firstClass;
+    //    @Autowired
+//    @Qualifier("secondBean")
+    private FirstClass firstClass;
 
-//    public MyFirstService(
+    //    public MyFirstService(
 //          // @Qualifier("bean2")
 //          FirstClass firstClass
 //    ) {
 //        this.firstClass = firstClass;
 //    }
+    @Autowired
+    public void initDependency(@Qualifier("firstBean") FirstClass firstClass) {
+        this.firstClass = firstClass;
 
-
+    }
 
     public String helloSpring() {
         return "Hello From dependency Injection: " + firstClass.hello();

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Primary;
 public class ApplicationConfig {
     //    @Bean
     // @Bean(name = "firoze")
-    @Bean()
+    @Bean
    // @Qualifier("bean1")
     public FirstClass firstBean() {
         return new FirstClass("Welcome in Java");
