@@ -16,8 +16,12 @@ public class MyFirstService {
 //    ) {
 //        this.firstClass = firstClass;
 //    }
+//    @Autowired
+//    public void initDependency(@Qualifier("firstBean") FirstClass firstClass) {
+//        this.firstClass = firstClass;
+//    }
     @Autowired
-    public void initDependency(@Qualifier("firstBean") FirstClass firstClass) {
+    public void setFirstClass(@Qualifier("firstBean") FirstClass firstClass) {
         this.firstClass = firstClass;
 
     }
