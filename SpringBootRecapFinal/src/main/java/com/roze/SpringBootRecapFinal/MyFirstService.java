@@ -21,8 +21,21 @@ public class MyFirstService {
     private Environment environment;
     //    @Autowired
 //    @Qualifier("secondBean")
-    private FirstClass firstClass;
+    private final FirstClass firstClass;
 
+    public String getLearn() {
+        return learn;
+    }
+
+    @Value("${first.learn}")
+    private String learn;
+
+    public Integer getEarn() {
+        return earn;
+    }
+
+    @Value("${then.earn}")
+    private Integer earn;
 
     @Value("${custom.one}")
     private String fromCustomFile1;
@@ -45,8 +58,14 @@ public class MyFirstService {
 //    public void initDependency(@Qualifier("firstBean") FirstClass firstClass) {
 //        this.firstClass = firstClass;
 //    }
-    @Autowired
-    public void setFirstClass(@Qualifier("firstBean") FirstClass firstClass) {
+//    @Autowired
+//    public void setFirstClass(@Qualifier("firstBean") FirstClass firstClass) {
+//        this.firstClass = firstClass;
+//
+//    }
+
+
+    public MyFirstService(@Qualifier("firstBean") FirstClass firstClass) {
         this.firstClass = firstClass;
 
     }

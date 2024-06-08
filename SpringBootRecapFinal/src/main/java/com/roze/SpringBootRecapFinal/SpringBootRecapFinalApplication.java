@@ -27,6 +27,8 @@ public class SpringBootRecapFinalApplication {
         System.out.println(firstService.getMyName());
         System.out.println(firstService.getFromCustomFile1());
         System.out.println(firstService.getFromCustomFile2());
+        System.out.println(firstService.getLearn());
+        System.out.println(firstService.getEarn());
 
     }
 
