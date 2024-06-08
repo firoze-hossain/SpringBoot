@@ -22,6 +22,9 @@ public class SpringBootRecapFinalApplication {
 
         MyFirstService firstService = context.getBean(MyFirstService.class);
         System.out.println(firstService.helloSpring());
+        System.out.println(firstService.getJavaVersion());
+        System.out.println(firstService.getOs());
+        System.out.println(firstService.getMyName());
 
     }
 
