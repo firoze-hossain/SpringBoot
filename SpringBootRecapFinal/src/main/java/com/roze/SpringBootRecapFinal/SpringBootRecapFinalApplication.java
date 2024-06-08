@@ -25,6 +25,8 @@ public class SpringBootRecapFinalApplication {
         System.out.println(firstService.getJavaVersion());
         System.out.println(firstService.getOs());
         System.out.println(firstService.getMyName());
+        System.out.println(firstService.getFromCustomFile1());
+        System.out.println(firstService.getFromCustomFile2());
 
     }
 
