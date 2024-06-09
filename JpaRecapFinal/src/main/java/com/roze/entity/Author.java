@@ -38,9 +38,9 @@ public class Author {
     private String lastName;
     @Column(unique = true, nullable = false)
     private String email;
-    private int age;
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-    @Column(insertable = false)
-    private LocalDateTime modifiedAt;
+   // private int age;
+//    @Column(nullable = false, updatable = false)
+//    private LocalDateTime createdAt;
+//    @Column(insertable = false)
+//    private LocalDateTime modifiedAt;
 }
