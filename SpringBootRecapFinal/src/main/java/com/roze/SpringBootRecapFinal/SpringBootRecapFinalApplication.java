@@ -2,14 +2,19 @@ package com.roze.SpringBootRecapFinal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+
+import java.util.Collections;
 
 @SpringBootApplication
 public class SpringBootRecapFinalApplication {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(SpringBootRecapFinalApplication.class, args);
+        SpringApplication app = new SpringApplication(SpringBootRecapFinalApplication.class);
+        app.setDefaultProperties(Collections.singletonMap("spring.profiles.active","test"));
+        ConfigurableApplicationContext context = app.run( args);
         //this is not a good practice
         //we should use the core feature of spring
 //        FirstClass firstClass = new FirstClass();
