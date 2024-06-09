@@ -13,7 +13,7 @@ public class SpringBootRecapFinalApplication {
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(SpringBootRecapFinalApplication.class);
-        app.setDefaultProperties(Collections.singletonMap("spring.profiles.active","test"));
+        app.setDefaultProperties(Collections.singletonMap("spring.profiles.active","dev"));
         ConfigurableApplicationContext context = app.run( args);
         //this is not a good practice
         //we should use the core feature of spring
