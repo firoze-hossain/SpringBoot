@@ -16,7 +16,7 @@ public class JpaRecapFinalApplication {
         SpringApplication.run(JpaRecapFinalApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     public CommandLineRunner commandLineRunner(AuthorRepository authorRepository) {
         return args -> {
             Author author = Author.builder()
@@ -24,7 +24,7 @@ public class JpaRecapFinalApplication {
                     .lastName("Hossain")
                     .age(30)
                     .email("firoze@gmail.com")
-                    .createdAt(LocalDateTime.now())
+                    //.createdAt(LocalDateTime.now())
                     .build();
             authorRepository.save(author);
 
