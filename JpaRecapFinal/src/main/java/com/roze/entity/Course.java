@@ -28,4 +28,7 @@ public class Course {
                     @JoinColumn(name = "author_id")
             })
     private List<Author> authors;
+
+    @OneToMany(mappedBy = "course")
+    private List<Section> sections;
 }
