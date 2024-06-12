@@ -1,21 +1,20 @@
 package com.roze.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 //@Table(name = "AUTHOR_TBL")
-public class Author {
+public class Author extends BaseEntity {
     //    @Id
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE,
 //            generator = "author_sequence")
@@ -29,10 +28,12 @@ public class Author {
 //            pkColumnName = "id_name",
 //            valueColumnName = "id_value",
 //            allocationSize = 1)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;//we use type as Integer instead of int because by default int=0 and Integer=null
-    @Column(name = "f_name",
+    //we use type as Integer instead of int because by default int=0 and Integer=null
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer id;
+
+    @Column(
             nullable = false,
             length = 35)
     private String firstName;
@@ -42,8 +43,4 @@ public class Author {
     private int age;
     @ManyToMany(mappedBy = "authors")
     private List<Course> courses;
-//    @Column(nullable = false, updatable = false)
-//    private LocalDateTime createdAt;
-//    @Column(insertable = false)
-//    private LocalDateTime modifiedAt;
 }
