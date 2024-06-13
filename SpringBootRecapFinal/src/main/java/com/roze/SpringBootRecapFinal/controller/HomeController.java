@@ -1,9 +1,7 @@
 package com.roze.SpringBootRecapFinal.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class HomeController {
@@ -17,5 +15,10 @@ public class HomeController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String profile() {
         return "Welcome to Firoze's Profile";
+    }
+
+    @PostMapping("/name")
+    public String postName(@RequestBody String name) {
+        return "Request accepted with " + name;
     }
 }
