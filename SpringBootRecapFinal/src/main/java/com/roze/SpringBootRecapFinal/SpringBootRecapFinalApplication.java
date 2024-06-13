@@ -12,9 +12,10 @@ import java.util.Collections;
 public class SpringBootRecapFinalApplication {
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(SpringBootRecapFinalApplication.class);
-        app.setDefaultProperties(Collections.singletonMap("spring.profiles.active","dev"));
-        ConfigurableApplicationContext context = app.run( args);
+        SpringApplication.run(SpringBootRecapFinalApplication.class, args);
+        // SpringApplication app = new SpringApplication(SpringBootRecapFinalApplication.class);
+//        app.setDefaultProperties(Collections.singletonMap("spring.profiles.active","dev"));
+//        ConfigurableApplicationContext context = app.run( args);
         //this is not a good practice
         //we should use the core feature of spring
 //        FirstClass firstClass = new FirstClass();
@@ -25,15 +26,15 @@ public class SpringBootRecapFinalApplication {
 //        FirstClass firstClass = context.getBean("firoze",FirstClass.class);
 //        System.out.println(firstClass.hello());
 
-        MyFirstService firstService = context.getBean(MyFirstService.class);
-        System.out.println(firstService.helloSpring());
-        System.out.println(firstService.getJavaVersion());
-        System.out.println(firstService.getOs());
-        System.out.println(firstService.getMyName());
-        System.out.println(firstService.getFromCustomFile1());
-        System.out.println(firstService.getFromCustomFile2());
-        System.out.println(firstService.getLearn());
-        System.out.println(firstService.getEarn());
+//        MyFirstService firstService = context.getBean(MyFirstService.class);
+//        System.out.println(firstService.helloSpring());
+//        System.out.println(firstService.getJavaVersion());
+//        System.out.println(firstService.getOs());
+//        System.out.println(firstService.getMyName());
+//        System.out.println(firstService.getFromCustomFile1());
+//        System.out.println(firstService.getFromCustomFile2());
+//        System.out.println(firstService.getLearn());
+//        System.out.println(firstService.getEarn());
 
     }
 
