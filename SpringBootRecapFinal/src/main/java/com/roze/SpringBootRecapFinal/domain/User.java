@@ -1,8 +1,13 @@
 package com.roze.SpringBootRecapFinal.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class User {
+    @JsonProperty("f-name")
     private String firstName;
+    @JsonProperty("l-name")
     private String lastName;
+    @JsonProperty("email")
     private String email;
 
     public String getFirstName() {
