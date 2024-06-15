@@ -26,4 +26,10 @@ public class HomeController {
     public String pathVar(@PathVariable("user-name") String userName) {
         return "Welcome to Java Home " + userName;
     }
+
+    @GetMapping("/users")
+    public String requestParam(@RequestParam("first-name") String firstName,
+                               @RequestParam("last-name") String lastName) {
+        return "Welcome to Java Home " + firstName + " " + lastName;
+    }
 }
