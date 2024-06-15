@@ -21,4 +21,9 @@ public class HomeController {
     public String postName(@RequestBody String name) {
         return "Request accepted with " + name;
     }
+
+    @GetMapping("/home/{user-name}")
+    public String pathVar(@PathVariable("user-name") String userName) {
+        return "Welcome to Java Home " + userName;
+    }
 }
