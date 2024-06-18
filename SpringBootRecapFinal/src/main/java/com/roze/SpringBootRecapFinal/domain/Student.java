@@ -1,16 +1,26 @@
 package com.roze.SpringBootRecapFinal.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "students")
 public class Student {
     @Id
     private Integer id;
+    @Column(name = "f_name")
     private String firstName;
+    @Column(length = 20)
     private String lastName;
+    @Column(unique = true)
     private String email;
     private int age;
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 
     public Student() {
     }
