@@ -1,5 +1,6 @@
 package com.roze.SpringBootRecapFinal.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "school_id")
+    @JsonBackReference
     private School school;
 
     public Student() {
