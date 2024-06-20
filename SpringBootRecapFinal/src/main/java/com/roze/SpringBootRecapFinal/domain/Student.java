@@ -20,6 +20,9 @@ public class Student {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
+    private StudentProfile studentProfile;
+
     public Student() {
     }
 
