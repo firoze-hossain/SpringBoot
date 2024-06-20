@@ -1,11 +1,24 @@
 package com.roze.repository;
 
 import com.roze.entity.Author;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface AuthorRepository extends JpaRepository<Author, Integer> {
+    @Query("update Author a set a.age=:age where a.id=:id")
+    @Modifying
+    @Transactional
+    int updateAuthorAgeById(int age, int id);
+
+    @Modifying
+    @Transactional
+    @Query("update  Author  a set a.age=:age")
+    void updateAllAuthorsAge(int age);
+
     //retrieve list of authors by using last name
     //or,
     // select * from author where last_name='firoze';

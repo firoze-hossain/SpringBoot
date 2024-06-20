@@ -19,7 +19,7 @@ public class JpaRecapFinalApplication {
         SpringApplication.run(JpaRecapFinalApplication.class, args);
     }
 
-   // @Bean
+    @Bean
     public CommandLineRunner commandLineRunner(
             AuthorRepository authorRepository,
             VideoRepository videoRepository
@@ -31,12 +31,29 @@ public class JpaRecapFinalApplication {
 //                        .firstName(faker.name().firstName())
 //                        .lastName(faker.name().lastName())
 //                        .age(faker.number().numberBetween(18, 50))
-//                        .email("firoze" + i + "@gmail.com")
+//                        .email(faker.name().username()+ "@gmail.com")
 //                        .createdAt(LocalDateTime.now())
 //                        .createdBy(faker.name().name())
 //                        .build();
 //                authorRepository.save(author);
 //            }
+
+            Author author = Author.builder()
+                    .id(1)
+                    .firstName("Md. Firoze")
+                    .lastName("Hossain")
+                    .age(28)
+                    .email("firoze.hossain01@gmail.com")
+                    //.createdAt(LocalDateTime.now())
+                    .createdBy("Md. Firoze Hossain")
+                    .build();
+            //authorRepository.save(author);
+
+            //update author age by id
+            //  authorRepository.updateAuthorAgeById(33,1);
+            //update all authors age
+            authorRepository.updateAllAuthorsAge(68);
+
 
             /*Video video = Video.builder()
                     .name("Firoze Bio")
