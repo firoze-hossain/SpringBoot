@@ -2,6 +2,7 @@ package com.roze.SpringBootRecapFinal.controller;
 
 import com.roze.SpringBootRecapFinal.domain.Student;
 import com.roze.SpringBootRecapFinal.repository.StudentRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -35,5 +36,11 @@ public class StudentController {
     @GetMapping("/search/{first-name}")
     public List<Student> findByFirstName(@PathVariable("first-name") String firstName) {
         return repository.findAllByFirstNameContaining(firstName);
+    }
+
+    @DeleteMapping("/{student-id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteStudentById(@PathVariable("student-id") Integer id) {
+        repository.deleteById(id);
     }
 }
