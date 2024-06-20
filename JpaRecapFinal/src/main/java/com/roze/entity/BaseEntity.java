@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @SuperBuilder
 public class BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Integer id;
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;

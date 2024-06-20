@@ -1,5 +1,6 @@
 package com.roze;
 
+import com.github.javafaker.Faker;
 import com.roze.entity.Author;
 import com.roze.entity.Video;
 import com.roze.repository.AuthorRepository;
@@ -24,19 +25,24 @@ public class JpaRecapFinalApplication {
             VideoRepository videoRepository
     ) {
         return args -> {
-           /* Author author = Author.builder()
-                    .firstName("Md. Firoze")
-                    .lastName("Hossain")
-                    .age(30)
-                    .email("firoze@gmail.com")
-                    //.createdAt(LocalDateTime.now())
-                    .build();
-            authorRepository.save(author);*/
-            Video video = Video.builder()
+            for (int i = 0; i < 100; i++) {
+                Faker faker = new Faker();
+                Author author = Author.builder()
+                        .firstName(faker.name().firstName())
+                        .lastName(faker.name().lastName())
+                        .age(faker.number().numberBetween(18, 50))
+                        .email("firoze" + i + "@gmail.com")
+                        .createdAt(LocalDateTime.now())
+                        .createdBy(faker.name().name())
+                        .build();
+                authorRepository.save(author);
+            }
+
+            /*Video video = Video.builder()
                     .name("Firoze Bio")
                     .length(6)
                     .build();
-            videoRepository.save(video);
+            videoRepository.save(video);*/
 
         };
     }
