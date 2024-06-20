@@ -26,4 +26,9 @@ public class StudentController {
     public List<Student> findAllStudents() {
         return repository.findAll();
     }
+
+    @GetMapping("/{student-id}")
+    public Student findById(@PathVariable("student-id") Integer id) {
+        return repository.findById(id).orElse(null);
+    }
 }
