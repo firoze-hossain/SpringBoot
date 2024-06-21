@@ -25,41 +25,45 @@ public class JpaRecapFinalApplication {
             VideoRepository videoRepository
     ) {
         return args -> {
-//            for (int i = 0; i < 100; i++) {
-//                Faker faker = new Faker();
-//                Author author = Author.builder()
-//                        .firstName(faker.name().firstName())
-//                        .lastName(faker.name().lastName())
-//                        .age(faker.number().numberBetween(18, 50))
-//                        .email(faker.name().username()+ "@gmail.com")
-//                        .createdAt(LocalDateTime.now())
-//                        .createdBy(faker.name().name())
-//                        .build();
-//                authorRepository.save(author);
-//            }
+            for (int i = 0; i < 100; i++) {
+                Faker faker = new Faker();
+                Author author = Author.builder()
+                        .firstName(faker.name().firstName())
+                        .lastName(faker.name().lastName())
+                        .age(faker.number().numberBetween(18, 50))
+                        .email(faker.name().username()+ "@gmail.com")
+                        .createdAt(LocalDateTime.now())
+                        .createdBy(faker.name().name())
+                        .build();
+                authorRepository.save(author);
+            }
 
-            Author author = Author.builder()
-                    .id(1)
-                    .firstName("Md. Firoze")
-                    .lastName("Hossain")
-                    .age(28)
-                    .email("firoze.hossain01@gmail.com")
-                    //.createdAt(LocalDateTime.now())
-                    .createdBy("Md. Firoze Hossain")
-                    .build();
+//            Author author = Author.builder()
+//                    .id(1)
+//                    .firstName("Md. Firoze")
+//                    .lastName("Hossain")
+//                    .age(28)
+//                    .email("firoze.hossain01@gmail.com")
+//                    //.createdAt(LocalDateTime.now())
+//                    .createdBy("Md. Firoze Hossain")
+//                    .build();
             //authorRepository.save(author);
 
             //update author age by id
             //  authorRepository.updateAuthorAgeById(33,1);
             //update all authors age
-            authorRepository.updateAllAuthorsAge(68);
+           // authorRepository.updateAllAuthorsAge(68);
 
+          //authorRepository.findByNamedQuery(30).forEach(System.out::println);
+            authorRepository.updateByNamedQuery(36);
 
             /*Video video = Video.builder()
                     .name("Firoze Bio")
                     .length(6)
                     .build();
             videoRepository.save(video);*/
+
+
 
         };
     }

@@ -13,6 +13,14 @@ import java.util.List;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
+@NamedQuery(
+        name = "Author.findByNamedQuery",
+        query = "select a from Author a where a.age>=:age"
+)
+@NamedQuery(
+        name = "Author.updateByNamedQuery",
+        query = "update Author a set a.age=:age"
+)
 //@Table(name = "AUTHOR_TBL")
 public class Author extends BaseEntity {
     //    @Id
@@ -41,6 +49,6 @@ public class Author extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String email;
     private int age;
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors",fetch = FetchType.EAGER)
     private List<Course> courses;
 }
