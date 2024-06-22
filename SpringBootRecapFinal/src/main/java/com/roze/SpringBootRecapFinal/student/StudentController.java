@@ -1,8 +1,5 @@
-package com.roze.SpringBootRecapFinal.controller;
+package com.roze.SpringBootRecapFinal.student;
 
-import com.roze.SpringBootRecapFinal.dto.StudentRequestDto;
-import com.roze.SpringBootRecapFinal.dto.StudentResponseDto;
-import com.roze.SpringBootRecapFinal.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,9 +1,6 @@
-package com.roze.SpringBootRecapFinal.mapper;
+package com.roze.SpringBootRecapFinal.student;
 
-import com.roze.SpringBootRecapFinal.domain.School;
-import com.roze.SpringBootRecapFinal.domain.Student;
-import com.roze.SpringBootRecapFinal.dto.StudentRequestDto;
-import com.roze.SpringBootRecapFinal.dto.StudentResponseDto;
+import com.roze.SpringBootRecapFinal.school.School;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,8 +1,5 @@
-package com.roze.SpringBootRecapFinal.controller;
+package com.roze.SpringBootRecapFinal.school;
 
-import com.roze.SpringBootRecapFinal.dto.SchoolRequestDto;
-import com.roze.SpringBootRecapFinal.dto.SchoolResponseDto;
-import com.roze.SpringBootRecapFinal.service.SchoolService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

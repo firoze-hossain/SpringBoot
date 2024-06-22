@@ -1,6 +1,5 @@
-package com.roze.SpringBootRecapFinal.repository;
+package com.roze.SpringBootRecapFinal.student;
 
-import com.roze.SpringBootRecapFinal.domain.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

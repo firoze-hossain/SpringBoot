@@ -1,6 +1,8 @@
-package com.roze.SpringBootRecapFinal.domain;
+package com.roze.SpringBootRecapFinal.student;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.roze.SpringBootRecapFinal.studentProfile.StudentProfile;
+import com.roze.SpringBootRecapFinal.school.School;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

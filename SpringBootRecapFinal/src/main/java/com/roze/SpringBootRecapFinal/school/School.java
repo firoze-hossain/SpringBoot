@@ -1,6 +1,7 @@
-package com.roze.SpringBootRecapFinal.domain;
+package com.roze.SpringBootRecapFinal.school;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.roze.SpringBootRecapFinal.student.Student;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

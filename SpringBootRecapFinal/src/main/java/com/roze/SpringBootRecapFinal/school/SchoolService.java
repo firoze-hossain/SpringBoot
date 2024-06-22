@@ -1,10 +1,5 @@
-package com.roze.SpringBootRecapFinal.service;
+package com.roze.SpringBootRecapFinal.school;
 
-import com.roze.SpringBootRecapFinal.domain.School;
-import com.roze.SpringBootRecapFinal.dto.SchoolRequestDto;
-import com.roze.SpringBootRecapFinal.dto.SchoolResponseDto;
-import com.roze.SpringBootRecapFinal.mapper.SchoolMapper;
-import com.roze.SpringBootRecapFinal.repository.SchoolRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 

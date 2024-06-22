@@ -1,10 +1,5 @@
-package com.roze.SpringBootRecapFinal.service;
+package com.roze.SpringBootRecapFinal.student;
 
-import com.roze.SpringBootRecapFinal.domain.Student;
-import com.roze.SpringBootRecapFinal.dto.StudentRequestDto;
-import com.roze.SpringBootRecapFinal.dto.StudentResponseDto;
-import com.roze.SpringBootRecapFinal.mapper.StudentMapper;
-import com.roze.SpringBootRecapFinal.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

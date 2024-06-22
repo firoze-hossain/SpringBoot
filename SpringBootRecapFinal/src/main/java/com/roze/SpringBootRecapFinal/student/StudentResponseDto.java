@@ -1,4 +1,4 @@
-package com.roze.SpringBootRecapFinal.dto;
+package com.roze.SpringBootRecapFinal.student;
 
 public record StudentResponseDto(
         Integer id,
