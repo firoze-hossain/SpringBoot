@@ -32,12 +32,17 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
-    public Student findById(Integer id) {
-        return repository.findById(id).orElse(null);
+    public StudentResponseDto findById(Integer id) {
+        return repository.findById(id)
+                .map(studentMapper::toStudentResponseDto)
+                .orElse(null);
     }
 
-    public List<Student> findByFirstName(String firstName) {
-        return repository.findAllByFirstNameContaining(firstName);
+    public List<StudentResponseDto> findByFirstName(String firstName) {
+        return repository.findAllByFirstNameContaining(firstName)
+                .stream()
+                .map(studentMapper::toStudentResponseDto)
+                .collect(Collectors.toList());
     }
 
     public void deleteStudentById(Integer id) {

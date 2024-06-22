@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StudentMapper {
 
-    public  Student toStudent(StudentRequestDto requestDto) {
+    public Student toStudent(StudentRequestDto requestDto) {
         Student student = new Student();
         student.setFirstName(requestDto.firstName());
         student.setLastName(requestDto.lastName());
@@ -20,7 +20,7 @@ public class StudentMapper {
         return student;
     }
 
-    public  StudentResponseDto toStudentResponseDto(Student student) {
+    public StudentResponseDto toStudentResponseDto(Student student) {
         StudentResponseDto studentResponseDto = new StudentResponseDto(student.getId(),
                 student.getFirstName(), student.getLastName(), student.getEmail());
         return studentResponseDto;

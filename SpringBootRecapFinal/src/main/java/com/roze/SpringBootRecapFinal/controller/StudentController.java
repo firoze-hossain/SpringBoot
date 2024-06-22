@@ -33,12 +33,12 @@ public class StudentController {
     }
 
     @GetMapping("/{student-id}")
-    public Student findById(@PathVariable("student-id") Integer id) {
+    public StudentResponseDto findById(@PathVariable("student-id") Integer id) {
         return studentService.findById(id);
     }
 
     @GetMapping("/search/{first-name}")
-    public List<Student> findByFirstName(@PathVariable("first-name") String firstName) {
+    public List<StudentResponseDto> findByFirstName(@PathVariable("first-name") String firstName) {
         return studentService.findByFirstName(firstName);
     }
 
