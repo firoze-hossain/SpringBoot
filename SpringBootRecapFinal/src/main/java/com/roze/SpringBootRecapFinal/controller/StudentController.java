@@ -3,55 +3,49 @@ package com.roze.SpringBootRecapFinal.controller;
 import com.roze.SpringBootRecapFinal.domain.Student;
 import com.roze.SpringBootRecapFinal.dto.StudentRequestDto;
 import com.roze.SpringBootRecapFinal.dto.StudentResponseDto;
-import com.roze.SpringBootRecapFinal.mapper.StudentMapper;
-import com.roze.SpringBootRecapFinal.repository.StudentRepository;
+import com.roze.SpringBootRecapFinal.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/students")
 public class StudentController {
-    private final StudentRepository repository;
-    private final StudentMapper studentMapper;
+    private final StudentService studentService;
 
-    public StudentController(StudentRepository repository, StudentMapper studentMapper) {
-        this.repository = repository;
-        this.studentMapper = studentMapper;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+
     }
 
     @PostMapping
     public StudentResponseDto saveStudent(
             @RequestBody StudentRequestDto requestDto
     ) {
-        Student student = studentMapper.toStudent(requestDto);
-        Student savedStudent = repository.save(student);
-        return studentMapper.toStudentResponseDto(savedStudent);
+        return studentService.saveStudent(requestDto);
     }
 
     @GetMapping
     public List<StudentResponseDto> findAllStudents() {
-        return repository.findAll().stream()
-                .map(studentMapper::toStudentResponseDto)
-                .collect(Collectors.toList());
+        return studentService.findAllStudents();
     }
 
     @GetMapping("/{student-id}")
     public Student findById(@PathVariable("student-id") Integer id) {
-        return repository.findById(id).orElse(null);
+        return studentService.findById(id);
     }
 
     @GetMapping("/search/{first-name}")
     public List<Student> findByFirstName(@PathVariable("first-name") String firstName) {
-        return repository.findAllByFirstNameContaining(firstName);
+        return studentService.findByFirstName(firstName);
     }
 
     @DeleteMapping("/{student-id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteStudentById(@PathVariable("student-id") Integer id) {
-        repository.deleteById(id);
+        studentService.deleteStudentById(id);
     }
 
 }
