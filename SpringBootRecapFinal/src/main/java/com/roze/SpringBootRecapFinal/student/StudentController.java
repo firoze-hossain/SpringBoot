@@ -1,5 +1,6 @@
 package com.roze.SpringBootRecapFinal.student;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class StudentController {
 
     @PostMapping
     public StudentResponseDto saveStudent(
-            @RequestBody StudentRequestDto requestDto
+           @Valid @RequestBody StudentRequestDto requestDto
     ) {
         return studentService.saveStudent(requestDto);
     }

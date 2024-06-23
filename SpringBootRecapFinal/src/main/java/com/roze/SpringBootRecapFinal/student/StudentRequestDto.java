@@ -1,8 +1,11 @@
 package com.roze.SpringBootRecapFinal.student;
 
-public record StudentRequestDto(
-        String firstName,
+import jakarta.validation.constraints.NotEmpty;
 
+public record StudentRequestDto(
+        @NotEmpty
+        String firstName,
+        @NotEmpty
         String lastName,
 
         String email,
