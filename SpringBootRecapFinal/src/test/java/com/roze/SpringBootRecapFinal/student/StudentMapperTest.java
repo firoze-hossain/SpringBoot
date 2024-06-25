@@ -1,12 +1,20 @@
 package com.roze.SpringBootRecapFinal.student;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentMapperTest {
+    @BeforeAll
+    static void beforeAll() {
+        System.out.println("Before all method");
+    }
+
+    @AfterAll
+    static void afterAll() {
+        System.out.println("after all method");
+    }
+
     @BeforeEach
     void setUp() {
         System.out.println("Before each method");
