@@ -57,4 +57,19 @@ class StudentMapperTest {
         assertEquals(studentRequestDto.schoolId(), student.getSchool().getId());
 
     }
+
+    @Test
+    public void shouldMapStudentToStudentResponseDto() {
+        Student student = new Student();
+        student.setId(1);
+        student.setFirstName("Firoze");
+        student.setLastName("Hossain");
+        student.setEmail("firoze@gmail.com");
+        StudentResponseDto dto = studentMapper.toStudentResponseDto(student);
+        assertEquals(dto.id(), student.getId());
+        assertEquals(dto.firstName(), student.getFirstName());
+        assertEquals(dto.lastName(), student.getLastName());
+        assertEquals(dto.email(), student.getEmail());
+
+    }
 }
