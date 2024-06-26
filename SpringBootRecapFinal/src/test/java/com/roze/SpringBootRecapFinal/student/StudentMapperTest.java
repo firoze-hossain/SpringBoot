@@ -72,4 +72,10 @@ class StudentMapperTest {
         assertEquals(dto.email(), student.getEmail());
 
     }
+    @Test
+    public void should_throw_null_pointer_exception_when_dto_is_null(){
+      Exception exp= assertThrows(NullPointerException.class,()->studentMapper.toStudent(null));
+      assertEquals("The dto should not be null",exp.getMessage());
+
+    }
 }
