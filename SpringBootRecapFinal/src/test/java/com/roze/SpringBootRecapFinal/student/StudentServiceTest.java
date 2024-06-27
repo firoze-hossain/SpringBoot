@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 class StudentServiceTest {
     @InjectMocks
@@ -82,6 +83,26 @@ class StudentServiceTest {
         //then
         Assertions.assertEquals(students.size(), responseDtos.size());
         Mockito.verify(studentRepository, Mockito.times(1)).findAll();
+
+    }
+
+    @Test
+    public void should_return_student_by_id() {
+        //given
+        Integer studentId = 1;
+        Student student = new Student("Firoze", "Hossain", "firoze@gmail.com", 28);
+        //mock the calls
+        Mockito.when(studentRepository.findById(studentId)).thenReturn(Optional.of(student));
+        Mockito.when(studentMapper.toStudentResponseDto(student)).
+                thenReturn(new StudentResponseDto(1, "Firoze", "Hossain", "firoze@gmail.com"));
+        //when
+        StudentResponseDto studentResponseDto = studentService.findById(studentId);
+        //then
+        Assertions.assertEquals(studentResponseDto.firstName(), student.getFirstName());
+        Assertions.assertEquals(studentResponseDto.lastName(), student.getLastName());
+        Assertions.assertEquals(studentResponseDto.email(), student.getEmail());
+
+        Mockito.verify(studentRepository, Mockito.times(1)).findById(studentId);
 
     }
 }
