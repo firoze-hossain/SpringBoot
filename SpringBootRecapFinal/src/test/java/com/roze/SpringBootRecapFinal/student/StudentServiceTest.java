@@ -58,5 +58,9 @@ class StudentServiceTest {
         Assertions.assertEquals(studentRequestDto.lastName(), studentResponseDto.lastName());
         Assertions.assertEquals(studentRequestDto.email(), studentResponseDto.email());
 
+        Mockito.verify(studentMapper,Mockito.times(1)).toStudent(studentRequestDto);
+        Mockito.verify(studentRepository,Mockito.times(1)).save(student);
+        Mockito.verify(studentMapper,Mockito.times(1)).toStudentResponseDto(savedStudent);
+
     }
 }
