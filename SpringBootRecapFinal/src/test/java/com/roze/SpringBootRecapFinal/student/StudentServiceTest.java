@@ -105,4 +105,22 @@ class StudentServiceTest {
         Mockito.verify(studentRepository, Mockito.times(1)).findById(studentId);
 
     }
+
+    @Test
+    public void should_return_students_by_first_name() {
+        //Given
+        String firstName = "Firoze";
+        List<Student> students = new ArrayList<>();
+        students.add(new Student("Firoze", "Hossain", "firoze@gmail.com", 28));
+
+        //mock the calls
+        Mockito.when(studentRepository.findAllByFirstNameContaining(firstName)).thenReturn(students);
+        Mockito.when(studentMapper.toStudentResponseDto(Mockito.any(Student.class)))
+                .thenReturn(new StudentResponseDto(1, "Firoze", "Hossain", "firoze@gmail.com"));
+        //when
+        List<StudentResponseDto> responseDtos = studentService.findByFirstName(firstName);
+        //then
+        Assertions.assertEquals(students.size(), responseDtos.size());
+        Mockito.verify(studentRepository, Mockito.times(1)).findAllByFirstNameContaining(firstName);
+    }
 }
