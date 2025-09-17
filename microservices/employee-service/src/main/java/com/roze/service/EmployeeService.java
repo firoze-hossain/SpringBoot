@@ -1,13 +1,13 @@
 package com.roze.service;
 
 import com.roze.entity.Employee;
+import com.roze.feignclient.AddressClient;
 import com.roze.repository.EmployeeRepository;
 import com.roze.response.AddressResponse;
 import com.roze.response.EmployeeResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class EmployeeService {
@@ -16,7 +16,9 @@ public class EmployeeService {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
-    private WebClient webClient;
+    private AddressClient addressClient;
+//    @Autowired
+//    private WebClient webClient;
     //@Autowired
     //private RestTemplate restTemplate;
 
@@ -36,12 +38,13 @@ public class EmployeeService {
         EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
         //AddressResponse addressResponse = restTemplate.getForObject(addressBaseUrl + "/address/{id}", AddressResponse.class, id);
         //AddressResponse addressResponse = getForObjectByRestTemplate(id);
-        AddressResponse addressResponse = webClient
-                .get()
-                .uri("/address/" + id)
-                .retrieve()
-                .bodyToMono(AddressResponse.class)
-                .block();
+//        AddressResponse addressResponse = webClient
+//                .get()
+//                .uri("/address/" + id)
+//                .retrieve()
+//                .bodyToMono(AddressResponse.class)
+//                .block();
+        AddressResponse addressResponse =addressClient.getAddressByEmployeeId(id);
         response.setAddressResponse(addressResponse);
         return response;
     }
