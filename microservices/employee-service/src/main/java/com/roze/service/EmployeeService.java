@@ -6,7 +6,6 @@ import com.roze.response.AddressResponse;
 import com.roze.response.EmployeeResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -68,11 +67,12 @@ public class EmployeeService {
 
 
         //get the ip and port  dynamically of address service using loadbalancer client
-        ServiceInstance serviceInstance = loadBalancerClient.choose("ADDRESS-SERVICE");
-        String uri = serviceInstance.getUri().toString();
-        String contextRoot = serviceInstance.getMetadata().get("configPath");
-        System.out.println("User==>" + serviceInstance.getMetadata().get("user"));
-        System.out.println("Uri====>" + uri + contextRoot);
-        return restTemplate.getForObject(uri + contextRoot + "/address/{id}", AddressResponse.class, id);
+//        ServiceInstance serviceInstance = loadBalancerClient.choose("ADDRESS-SERVICE");
+//        String uri = serviceInstance.getUri().toString();
+//        String contextRoot = serviceInstance.getMetadata().get("configPath");
+//        System.out.println("User==>" + serviceInstance.getMetadata().get("user"));
+//        System.out.println("Uri====>" + uri + contextRoot);
+        // return restTemplate.getForObject(uri + contextRoot + "/address/{id}", AddressResponse.class, id);
+        return restTemplate.getForObject("http://ADDRESS-SERVICE/address-app/api/address/{id}", AddressResponse.class, id);
     }
 }
