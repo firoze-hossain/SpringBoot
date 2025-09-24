@@ -8,8 +8,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class EmployeeAppConfig {
-//    @Value("${addressservice.base.url}")
-//    private String addressBaseUrl;
+    @Value("${addressservice.base.url}")
+    private String addressBaseUrl;
 
 //    @Bean
 //    public RestTemplate restTemplate() {
@@ -21,11 +21,11 @@ public class EmployeeAppConfig {
         return new ModelMapper();
     }
 
-//    @Bean
-//    public WebClient webClient() {
-//        return WebClient
-//                .builder()
-//                .baseUrl(addressBaseUrl)
-//                .build();
-//    }
+    @Bean
+    public WebClient webClient() {
+        return WebClient
+                .builder()
+                .baseUrl(addressBaseUrl)
+                .build();
+    }
 }
