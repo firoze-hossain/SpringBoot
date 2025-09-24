@@ -1,12 +1,13 @@
 package com.roze.service;
 
 import com.roze.entity.Employee;
+import com.roze.feignclient.AddressClient;
 import com.roze.repository.EmployeeRepository;
 import com.roze.response.AddressResponse;
 import com.roze.response.EmployeeResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -25,8 +26,11 @@ public class EmployeeService {
     private RestTemplate restTemplate;
     //    @Autowired
 //    private DiscoveryClient discoveryClient;
+//    @Autowired
+//    private LoadBalancerClient loadBalancerClient;
+
     @Autowired
-    private LoadBalancerClient loadBalancerClient;
+    private AddressClient addressClient;
 //    @Value("${addressservice.base.url}")
 //    private String addressBaseUrl;
 
@@ -45,10 +49,12 @@ public class EmployeeService {
         //AddressResponse addressResponse = getForObjectByRestTemplate(id);
 //        AddressResponse addressResponse = callAddressServiceUsingWebClient(id);
 //        AddressResponse addressResponse =addressClient.getAddressByEmployeeId(id);
-        AddressResponse addressResponse = getForObjectByRestTemplate(id);
+        ResponseEntity<AddressResponse> addressResponseResponseEntity = addressClient.getAddressByEmployeeId(id);
+        AddressResponse addressResponse = addressResponseResponseEntity.getBody();
         response.setAddressResponse(addressResponse);
         return response;
     }
+
 
     private AddressResponse callAddressServiceUsingWebClient(int id) {
         return webClient
