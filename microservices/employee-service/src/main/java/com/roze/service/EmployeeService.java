@@ -7,12 +7,10 @@ import com.roze.response.EmployeeResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.List;
 
 @Service
 public class EmployeeService {
@@ -26,8 +24,10 @@ public class EmployeeService {
     private WebClient webClient;
     @Autowired
     private RestTemplate restTemplate;
+    //    @Autowired
+//    private DiscoveryClient discoveryClient;
     @Autowired
-    private DiscoveryClient discoveryClient;
+    private LoadBalancerClient loadBalancerClient;
 //    @Value("${addressservice.base.url}")
 //    private String addressBaseUrl;
 
@@ -61,11 +61,18 @@ public class EmployeeService {
     }
 
     private AddressResponse getForObjectByRestTemplate(int id) {
-        //get the ip and port of address service
-        List<ServiceInstance> instances = discoveryClient.getInstances("ADDRESS-SERVICE");
-        ServiceInstance serviceInstance = instances.get(0);
+//        //get the ip and port of address service using discovery client
+//        List<ServiceInstance> instances = discoveryClient.getInstances("ADDRESS-SERVICE");
+////        ServiceInstance serviceInstance = instances.get(0);
+//        String uri = serviceInstance.getUri().toString();
+
+
+        //get the ip and port  dynamically of address service using loadbalancer client
+        ServiceInstance serviceInstance = loadBalancerClient.choose("ADDRESS-SERVICE");
         String uri = serviceInstance.getUri().toString();
-        System.out.println("Uri====>" + uri);
-        return restTemplate.getForObject(uri + "/address-app/api/address/{id}", AddressResponse.class, id);
+        String contextRoot = serviceInstance.getMetadata().get("configPath");
+        System.out.println("User==>" + serviceInstance.getMetadata().get("user"));
+        System.out.println("Uri====>" + uri + contextRoot);
+        return restTemplate.getForObject(uri + contextRoot + "/address/{id}", AddressResponse.class, id);
     }
 }
