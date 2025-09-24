@@ -6,8 +6,13 @@ import com.roze.response.AddressResponse;
 import com.roze.response.EmployeeResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
 
 @Service
 public class EmployeeService {
@@ -19,9 +24,10 @@ public class EmployeeService {
 //    private AddressClient addressClient;
     @Autowired
     private WebClient webClient;
-    //@Autowired
-    //private RestTemplate restTemplate;
-
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private DiscoveryClient discoveryClient;
 //    @Value("${addressservice.base.url}")
 //    private String addressBaseUrl;
 
@@ -38,18 +44,28 @@ public class EmployeeService {
         EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
         //AddressResponse addressResponse = restTemplate.getForObject(addressBaseUrl + "/address/{id}", AddressResponse.class, id);
         //AddressResponse addressResponse = getForObjectByRestTemplate(id);
-        AddressResponse addressResponse = webClient
+//        AddressResponse addressResponse = callAddressServiceUsingWebClient(id);
+//        AddressResponse addressResponse =addressClient.getAddressByEmployeeId(id);
+        AddressResponse addressResponse = getForObjectByRestTemplate(id);
+        response.setAddressResponse(addressResponse);
+        return response;
+    }
+
+    private AddressResponse callAddressServiceUsingWebClient(int id) {
+        return webClient
                 .get()
                 .uri("/address/" + id)
                 .retrieve()
                 .bodyToMono(AddressResponse.class)
                 .block();
-//        AddressResponse addressResponse =addressClient.getAddressByEmployeeId(id);
-        response.setAddressResponse(addressResponse);
-        return response;
     }
 
-//    private AddressResponse getForObjectByRestTemplate(int id) {
-//        return restTemplate.getForObject("/address/{id}", AddressResponse.class, id);
-//    }
+    private AddressResponse getForObjectByRestTemplate(int id) {
+        //get the ip and port of address service
+        List<ServiceInstance> instances = discoveryClient.getInstances("ADDRESS-SERVICE");
+        ServiceInstance serviceInstance = instances.get(0);
+        String uri = serviceInstance.getUri().toString();
+        System.out.println("Uri====>" + uri);
+        return restTemplate.getForObject(uri + "/address-app/api/address/{id}", AddressResponse.class, id);
+    }
 }
