@@ -1,6 +1,7 @@
 package com.roze;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 
@@ -10,9 +11,14 @@ public class TestReactor {
         return publisher;
     }
 
+    Mono<String> barPublisher() {
+        Mono<String> monoPublisher = Mono.just("firoze@gmail.com");
+        return monoPublisher;
+    }
+
     public static void main(String[] args) throws InterruptedException {
-        Flux<String> publisher = new TestReactor().fooPublisher();
-        publisher.subscribe(str -> System.out.println(str));
+//        Flux<String> publisher = new TestReactor().fooPublisher();
+//        publisher.subscribe(str -> System.out.println(str));
 //        publisher.subscribe(new Consumer<String>() {
 //            @Override
 //            public void accept(String s) {
@@ -20,6 +26,8 @@ public class TestReactor {
 //            }
 //        });
 
-        Thread.sleep(10000);
+//        Thread.sleep(10000);
+        Mono<String> monoPub = new TestReactor().barPublisher();
+        monoPub.subscribe((str) -> System.out.println(str));
     }
 }
