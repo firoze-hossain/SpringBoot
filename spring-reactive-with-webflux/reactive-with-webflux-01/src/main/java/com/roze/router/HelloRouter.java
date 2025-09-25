@@ -48,6 +48,12 @@ public class HelloRouter {
 //            return serverResponseMono;
 //        });
 
-        return RouterFunctions.route(RequestPredicates.GET("/hello"), request -> helloHandler.helloHand());
+        //return RouterFunctions.route(RequestPredicates.GET("/hello"), request -> helloHandler.helloHand());
+        // return RouterFunctions.route(RequestPredicates.GET("/hello/{yourName}"), request -> helloHandler.helloHand(request));
+        //using method reference
+        //return RouterFunctions.route(RequestPredicates.GET("/hello/{yourName}"), helloHandler::helloHand);
+        return RouterFunctions
+                .route(RequestPredicates.GET("/hello/{yourName}"), helloHandler::helloHand)
+                .andRoute(RequestPredicates.GET("/hi"), helloHandler::hiHandler);
     }
 }
