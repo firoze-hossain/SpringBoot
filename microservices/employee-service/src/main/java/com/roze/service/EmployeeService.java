@@ -3,6 +3,8 @@ package com.roze.service;
 import com.roze.entity.Employee;
 import com.roze.feignclient.AddressClient;
 import com.roze.repository.EmployeeRepository;
+import com.roze.request.AddressRequest;
+import com.roze.request.EmployeeRequest;
 import com.roze.response.AddressResponse;
 import com.roze.response.EmployeeResponse;
 import org.modelmapper.ModelMapper;
@@ -80,5 +82,26 @@ public class EmployeeService {
 //        System.out.println("Uri====>" + uri + contextRoot);
         // return restTemplate.getForObject(uri + contextRoot + "/address/{id}", AddressResponse.class, id);
         return restTemplate.getForObject("http://ADDRESS-SERVICE/address-app/api/address/{id}", AddressResponse.class, id);
+    }
+
+    public EmployeeResponse create(EmployeeRequest request) {
+        Employee employee = new Employee();
+        employee.setName(request.getName());
+        employee.setEmail(request.getEmail());
+        employee.setBloodGroup(request.getBloodGroup());
+        Employee savedEmployee = employeeRepository.save(employee);
+
+        AddressRequest addressRequest = request.getAddressRequest();
+        if (addressRequest != null) {
+            AddressRequest addressRequestWithEmployeeId = new AddressRequest();
+            addressRequestWithEmployeeId.setLane1(addressRequest.getLane1());
+            addressRequestWithEmployeeId.setLane2(addressRequest.getLane2());
+            addressRequestWithEmployeeId.setPostalCode(addressRequest.getPostalCode());
+            addressRequestWithEmployeeId.setState(addressRequest.getState());
+
+            addressClient.createAddress(savedEmployee.getId(), addressRequestWithEmployeeId);
+        }
+        EmployeeResponse response = modelMapper.map(savedEmployee, EmployeeResponse.class);
+        return response;
     }
 }

@@ -1,31 +1,19 @@
-package com.roze.entity;
+package com.roze.request;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "address")
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-    @Column(name = "lane_1")
+public class AddressRequest {
     private String lane1;
-    @Column(name = "lane_2")
     private String lane2;
-    @Column(name = "postal_code")
     private String postalCode;
-    @Column(name = "state")
     private String state;
-    @Column(name = "employee_id", unique = true)
-    private int employeeId;
 
-    public int getId() {
-        return id;
+    public AddressRequest() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public AddressRequest(String lane1, String lane2, String postalCode, String state) {
+        this.lane1 = lane1;
+        this.lane2 = lane2;
+        this.postalCode = postalCode;
+        this.state = state;
     }
 
     public String getLane1() {
@@ -58,13 +46,5 @@ public class Address {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
     }
 }

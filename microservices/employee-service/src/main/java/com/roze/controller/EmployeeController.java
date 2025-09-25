@@ -1,18 +1,16 @@
 package com.roze.controller;
 
+import com.roze.request.EmployeeRequest;
 import com.roze.response.EmployeeResponse;
 import com.roze.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class EmployeeController {
-//    @Autowired
+    //    @Autowired
 //    private RestTemplate restTemplate;
     @Autowired
     private EmployeeService employeeService;
@@ -27,5 +25,11 @@ public class EmployeeController {
     public ResponseEntity<EmployeeResponse> getEmployeeDetails(@PathVariable("id") int id) {
         EmployeeResponse response = employeeService.getEmployeeById(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PostMapping("/employees")
+    public ResponseEntity<EmployeeResponse> create(@RequestBody EmployeeRequest request) {
+        EmployeeResponse response = employeeService.create(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

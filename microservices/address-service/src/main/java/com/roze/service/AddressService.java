@@ -2,6 +2,7 @@ package com.roze.service;
 
 import com.roze.entity.Address;
 import com.roze.repository.AddressRepository;
+import com.roze.request.AddressRequest;
 import com.roze.response.AddressResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,24 @@ public class AddressService {
     private ModelMapper modelMapper;
 
     public AddressResponse getAddressByEmployee(int employeeId) {
-        System.out.println("finding address for employee "+employeeId+" on port 8080");
+        System.out.println("finding address for employee " + employeeId + " on port 8080");
         Address address = addressRepository.findAddressByEmployeeId(employeeId);
         AddressResponse response = modelMapper.map(address, AddressResponse.class);
         return response;
+    }
+
+    public AddressResponse create(int employeeId, AddressRequest request) {
+        Address existingAddress = addressRepository.findByEmployeeId(employeeId);
+        if (existingAddress != null) {
+            throw new RuntimeException("Address already exists for employee id: " + employeeId);
+        }
+        Address address = new Address();
+        address.setEmployeeId(employeeId);
+        address.setLane1(request.getLane1());
+        address.setLane2(request.getLane2());
+        address.setPostalCode(request.getPostalCode());
+        address.setState(request.getState());
+        Address savedAddress = addressRepository.save(address);
+        return modelMapper.map(savedAddress, AddressResponse.class);
     }
 }
