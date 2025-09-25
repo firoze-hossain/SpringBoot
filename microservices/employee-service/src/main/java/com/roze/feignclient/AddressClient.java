@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 //http://localhost:8080/address-app/api/address/1
 //@FeignClient(name = "address-service", url = "http://localhost:8080/address-app/api")
 //@FeignClient(name = "address-service", url = "http://localhost:8080", path = "/address-app/api")
@@ -23,4 +25,8 @@ public interface AddressClient {
 
     @PostMapping("/address/{employeeId}")
     public ResponseEntity<AddressResponse> createAddress(@PathVariable("employeeId") int employeeId, @RequestBody AddressRequest request);
+
+    @GetMapping("/address/all")
+    public ResponseEntity<List<AddressResponse>> getAllAddresses();
+
 }

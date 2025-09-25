@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class AddressController {
     @Autowired
@@ -28,5 +30,11 @@ public class AddressController {
     public ResponseEntity<AddressResponse> createAddress(@PathVariable("employeeId") int employeeId, @RequestBody AddressRequest request) {
         AddressResponse response = addressService.create(employeeId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/address/all")
+    public ResponseEntity<List<AddressResponse>> getAllAddresses() {
+        List<AddressResponse> responses = addressService.getAllAddresses();
+        return ResponseEntity.status(HttpStatus.OK).body(responses);
     }
 }

@@ -6,6 +6,7 @@ public class AddressResponse {
     private String lane2;
     private String postalCode;
     private String state;
+    private int employeeId;
 
     public int getId() {
         return id;
@@ -45,5 +46,13 @@ public class AddressResponse {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 }

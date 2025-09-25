@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class EmployeeController {
     //    @Autowired
@@ -31,5 +33,11 @@ public class EmployeeController {
     public ResponseEntity<EmployeeResponse> create(@RequestBody EmployeeRequest request) {
         EmployeeResponse response = employeeService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/employees")
+    public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
+        List<EmployeeResponse> responses = employeeService.getAllEmployees();
+        return ResponseEntity.status(HttpStatus.OK).body(responses);
     }
 }

@@ -14,6 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Service
 public class EmployeeService {
     @Autowired
@@ -103,5 +108,30 @@ public class EmployeeService {
         }
         EmployeeResponse response = modelMapper.map(savedEmployee, EmployeeResponse.class);
         return response;
+    }
+
+    public List<EmployeeResponse> getAllEmployees() {
+        List<Employee> employees = employeeRepository.findAll();
+        List<AddressResponse> addressResponseList = Collections.emptyList();
+        try {
+            ResponseEntity<List<AddressResponse>> allAddresses = addressClient.getAllAddresses();
+            addressResponseList = allAddresses.getBody() != null ? allAddresses.getBody() : Collections.emptyList();
+        } catch (Exception e) {
+            System.out.println("Error fetching all addresses: " + e.getMessage());
+        }
+        Map<Integer, AddressResponse> addressResponseMap = addressResponseList.stream().collect(Collectors.toMap(
+                address -> getEmployeeIdFromAddress(address),
+                address -> address
+        ));
+        return employees.stream().map(employee -> {
+            EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
+            AddressResponse addressResponse = addressResponseMap.get(employee.getId());
+            response.setAddressResponse(addressResponse);
+            return response;
+        }).collect(Collectors.toList());
+    }
+
+    private int getEmployeeIdFromAddress(AddressResponse address) {
+        return address.getEmployeeId();
     }
 }

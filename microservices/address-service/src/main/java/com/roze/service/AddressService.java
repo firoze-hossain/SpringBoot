@@ -8,6 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class AddressService {
     @Autowired
@@ -35,5 +38,12 @@ public class AddressService {
         address.setState(request.getState());
         Address savedAddress = addressRepository.save(address);
         return modelMapper.map(savedAddress, AddressResponse.class);
+    }
+
+    public List<AddressResponse> getAllAddresses() {
+        List<Address> addresses = addressRepository.findAll();
+        return addresses.stream().map(address -> modelMapper
+                .map(address, AddressResponse.class))
+                .collect(Collectors.toList());
     }
 }
