@@ -20,7 +20,7 @@ public class AddressService {
 
     public AddressResponse getAddressByEmployee(int employeeId) {
         System.out.println("finding address for employee " + employeeId + " on port 8080");
-        Address address = addressRepository.findAddressByEmployeeId(employeeId);
+        Address address = addressRepository.findByEmployeeId(employeeId);
         AddressResponse response = modelMapper.map(address, AddressResponse.class);
         return response;
     }
