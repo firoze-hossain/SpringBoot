@@ -1,6 +1,11 @@
 package com.roze.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
+@Table("student")
 public class Student {
+    @Id
     private int id;
     private String name;
     private int age;
