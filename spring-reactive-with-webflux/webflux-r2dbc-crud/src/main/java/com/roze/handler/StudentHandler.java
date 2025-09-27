@@ -2,6 +2,7 @@ package com.roze.handler;
 
 import com.roze.dto.StudentRequest;
 import com.roze.service.StudentService;
+import com.roze.utils.ValidationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -16,9 +17,20 @@ public class StudentHandler {
 
     public Mono<ServerResponse> create(ServerRequest request) {
         return request.bodyToMono(StudentRequest.class)
+                .flatMap(ValidationUtils::validate)
                 .flatMap(studentService::create)
                 .flatMap(resp -> ServerResponse.status(resp.getStatusCode())
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(resp));
+    }
+
+    public Mono<ServerResponse> update(ServerRequest request) {
+        Long id = Long.valueOf(request.pathVariable("id"));
+        return request.bodyToMono(StudentRequest.class)
+                .flatMap(ValidationUtils::validate)
+                .flatMap(req -> studentService.update(id, req))
+                .flatMap(resp -> ServerResponse.status(resp.getStatusCode())
+                        .contentType(MediaType.APPLICATION_JSON).bodyValue(resp));
+
     }
 }
