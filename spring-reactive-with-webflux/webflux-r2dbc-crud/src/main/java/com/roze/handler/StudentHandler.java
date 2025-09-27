@@ -54,4 +54,14 @@ public class StudentHandler {
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(studentService.getAllStudents(), Object.class);
     }
+
+    public Mono<ServerResponse> getAllPaged(ServerRequest request) {
+        int page = Integer.parseInt(request.queryParam("page").orElse("0"));
+        int size = Integer.parseInt(request.queryParam("size").orElse("10"));
+        String sortBy = request.queryParam("sortBy").orElse("id");
+        String direction = request.queryParam("direction").orElse("asc");
+        return studentService.getAllStudents(page, size, sortBy, direction)
+                .flatMap(resp -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(resp));
+    }
 }

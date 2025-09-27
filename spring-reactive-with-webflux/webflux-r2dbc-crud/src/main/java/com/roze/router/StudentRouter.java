@@ -14,8 +14,10 @@ public class StudentRouter {
     public RouterFunction<?> studentRoutes(StudentHandler handler) {
         return route(POST("/students"), handler::create)
                 .andRoute(PUT("/students/{id}"), handler::update)
-                .andRoute(GET("/students/{id}"), handler::getStudent)
                 .andRoute(DELETE("/students/{id}"), handler::delete)
+                .andRoute(GET("/students/paged"), handler::getAllPaged)
+                .andRoute(GET("/students/{id}"), handler::getStudent)
                 .andRoute(GET("/students"), handler::getAllStudents);
+
     }
 }
