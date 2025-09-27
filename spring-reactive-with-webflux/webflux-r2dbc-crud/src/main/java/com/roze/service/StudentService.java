@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +42,44 @@ public class StudentService {
                         .statusCode(HttpStatus.OK.value())
                         .build())
                 .switchIfEmpty(Mono.error(new StudentNotFoundException(id)));
+    }
+
+    public Mono<BaseResponse<StudentResponse>> getStudent(Long id) {
+        return studentRepository.findById(id)
+                .switchIfEmpty(Mono.error(new StudentNotFoundException(id)))
+                .map(StudentResponse::toResponse)
+                .map(resp -> BaseResponse.<StudentResponse>builder()
+                        .success(true)
+                        .message("Student fetched successfully")
+                        .data(resp)
+                        .timestamp(Instant.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .build());
+    }
+
+    public Mono<BaseResponse<Void>> delete(Long id) {
+        return studentRepository.findById(id)
+                .flatMap(student -> studentRepository.delete(student)
+                        .thenReturn(BaseResponse.<Void>builder()
+                                .success(true)
+                                .message("Student deleted successfully")
+                                .data(null)
+                                .timestamp(Instant.now())
+                                .statusCode(HttpStatus.NO_CONTENT.value())
+                                .build()))
+                .switchIfEmpty(Mono.error(new StudentNotFoundException(id)));
+    }
+
+    public Mono<BaseResponse<List<StudentResponse>>> getAllStudents() {
+        return studentRepository.findAll()
+                .map(StudentResponse::toResponse)
+                .collectList()
+                .map(list -> BaseResponse.<List<StudentResponse>>builder()
+                        .success(true)
+                        .message("Students fetched successfully")
+                        .data(list)
+                        .timestamp(Instant.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .build());
     }
 }

@@ -33,4 +33,25 @@ public class StudentHandler {
                         .contentType(MediaType.APPLICATION_JSON).bodyValue(resp));
 
     }
+
+    public Mono<ServerResponse> getStudent(ServerRequest request) {
+        Long id = Long.valueOf(request.pathVariable("id"));
+        return studentService.getStudent(id)
+                .flatMap(resp -> ServerResponse.status(resp.getStatusCode())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(resp));
+    }
+
+    public Mono<ServerResponse> delete(ServerRequest request) {
+        Long id = Long.valueOf(request.pathVariable("id"));
+        return studentService.delete(id)
+                .flatMap(resp -> ServerResponse.status(resp.getStatusCode())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(resp));
+    }
+
+    public Mono<ServerResponse> getAllStudents(ServerRequest request) {
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(studentService.getAllStudents(), Object.class);
+    }
 }
